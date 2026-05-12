@@ -133,9 +133,9 @@ export default function decorate(block) {
     </div>`;
 
   // Form submission
-  const form    = block.querySelector('#contact-form');
-  const success = block.querySelector('#contact-success');
-  const reset   = block.querySelector('#contact-reset');
+const form = block.querySelector('#contact-form');
+const success = block.querySelector('#contact-success');
+const reset = block.querySelector('#contact-reset');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
