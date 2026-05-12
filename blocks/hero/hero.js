@@ -25,9 +25,13 @@ export default function decorate(block) {
 
   const secondaryLink = data['secondary cta link']?.textContent.trim() || '#';
 
-  const image = data.image?.querySelector('picture,img');
+  const badge = data['badge text']?.textContent.trim() || '';
 
-  const imageHTML = image ? image.outerHTML : '';
+  const imageElement =
+    data.image?.querySelector('picture') ||
+    data.image?.querySelector('img');
+
+  const imageHTML = imageElement ? imageElement.outerHTML : '';
 
   block.innerHTML = `
     <div class="hero-wrapper">
@@ -35,7 +39,7 @@ export default function decorate(block) {
       <div class="hero-content">
 
         <div class="hero-badge">
-          TOP RATED P&C CARRIER 2024
+          ${badge}
         </div>
 
         <h1 class="hero-heading">
