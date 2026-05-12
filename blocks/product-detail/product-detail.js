@@ -22,9 +22,7 @@ export default function decorate(block) {
 
       <div class="product-detail-left">
 
-        <div class="product-icon">
-          🏠
-        </div>
+        
 
         <h1 class="product-heading">
           ${data.heading?.textContent || ''}
