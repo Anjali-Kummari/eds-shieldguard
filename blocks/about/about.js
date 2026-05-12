@@ -3,10 +3,10 @@
  */
 export default function decorate(block) {
   const stats = [
-    { value: '25+',   label: 'Years of Trust' },
+    { value: '25+', label: 'Years of Trust' },
     { value: '1.2M+', label: 'Policies Active' },
     { value: '500k+', label: 'Claims Processed' },
-    { value: '2,500+',label: 'Expert Agents' },
+    { value: '2,500+', label: 'Expert Agents' },
   ];
 
   const values = [
@@ -50,49 +50,51 @@ export default function decorate(block) {
       <p>${v.desc}</p>
     </div>`).join('');
 
-  // Use image from block content if provided, else fallback
   const blockImg = block.querySelector('img');
+
   const imgSrc = blockImg?.src
     || 'https://images.unsplash.com/photo-1522071823991-b96773b2c42e?auto=format&fit=crop&q=80&w=1000';
+
   const imgAlt = blockImg?.alt || 'Our team';
 
   block.innerHTML = `
     <div class="about-inner">
-
-      <!-- Page hero -->
       <div class="about-hero">
         <h1>Protecting Your Future, <em>One Policy at a Time.</em></h1>
-        <p>ShieldGuard was founded with a simple mission: to redefine insurance for the modern world.
-           We combine decades of expertise with innovative technology to provide protection that's
-           as dynamic as your life.</p>
+
+        <p>
+          ShieldGuard was founded with a simple mission: to redefine insurance
+          for the modern world.
+        </p>
       </div>
 
-      <!-- Stats -->
       <div class="about-stats">${statsHTML}</div>
 
-      <!-- Values -->
       <div class="about-values">
         <h2>Our Core Values</h2>
+
         <div class="about-values-grid">${valuesHTML}</div>
       </div>
 
-      <!-- Story -->
       <div class="about-story">
         <div class="about-story-image">
-          <img src="${imgSrc}" alt="${imgAlt}" loading="lazy" width="800" height="600"
-            referrerpolicy="no-referrer">
+          <img
+            src="${imgSrc}"
+            alt="${imgAlt}"
+            loading="lazy"
+            width="800"
+            height="600"
+            referrerpolicy="no-referrer"
+          >
         </div>
+
         <div class="about-story-text">
           <h2>Our Story</h2>
-          <p>ShieldGuard started in 1999 as a small regional agency with a focus on personalised service.
-             We saw that the insurance industry was becoming increasingly impersonal and complex.</p>
-          <p>Over the next two decades, we expanded nationwide, but we never lost our focus on the
-             individual. Today, we are a leading P&amp;C provider, known for our fast claims processing
-             and human-centric approach to support.</p>
-          <p>We continue to invest in technology that empowers our customers, making it easier than
-             ever to manage risks and recover from the unexpected.</p>
+
+          <p>
+            ShieldGuard started in 1999 as a small regional agency.
+          </p>
         </div>
       </div>
-
     </div>`;
 }
