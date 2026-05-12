@@ -1,130 +1,104 @@
-/*
- * ShieldGuard — Services / Cards Block
- * 3-column product card grid with icon, hover border + shadow
- */
+.services-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
 
-.services {
-  padding: var(--space-24) var(--container-pad);
-  background-color: var(--color-white);
+  padding: 120px 24px;
 }
 
-.services-inner {
-  max-width: var(--container-max);
-  margin-inline: auto;
-}
-
-/* ── Section header ─────────────────────────────────────── */
 .services-header {
   text-align: center;
-  max-width: 42rem;
-  margin-inline: auto;
-  margin-bottom: var(--space-16);
+  max-width: 800px;
+
+  margin: 0 auto 72px;
 }
 
 .services-header h2 {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900);
-  margin-bottom: var(--space-4);
+  margin-bottom: 20px;
+
+  color: #08122e;
+
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.1;
+  font-weight: 800;
 }
 
 .services-header p {
-  font-size: var(--font-size-base);
-  color: var(--color-neutral-500);
-  margin: 0;
+  color: #5d6b82;
+
+  font-size: 22px;
+  line-height: 1.6;
 }
 
-/* ── Card grid ──────────────────────────────────────────── */
 .services-grid {
   display: grid;
-  gap: var(--space-8);
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 32px;
 }
 
-@media (min-width: 640px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (min-width: 1024px) {
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* ── Individual card ────────────────────────────────────── */
 .service-card {
-  padding: var(--space-8);
-  background-color: var(--color-white);
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-3xl);
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+  padding: 40px;
+
+  border: 1px solid #e7eaf0;
+  border-radius: 28px;
+
+  background: white;
+
+  transition: all 0.2s ease;
 }
 
 .service-card:hover {
-  border-color: var(--color-brand-primary-border);
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+
+  box-shadow: 0 20px 40px rgb(0 0 0 / 8%);
 }
 
-/* Icon */
-.service-card-icon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: var(--radius-xl);
-  background-color: var(--color-neutral-50);
+.service-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--space-6);
-  transition: background-color var(--transition-base);
+
+  width: 72px;
+  height: 72px;
+
+  margin-bottom: 32px;
+
+  border-radius: 20px;
+
+  background: #f4f7fb;
+
+  font-size: 32px;
 }
 
-.service-card:hover .service-card-icon {
-  background-color: var(--color-brand-primary-xlight);
-}
-
-.service-card-icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: var(--color-neutral-600);
-  transition: color var(--transition-base);
-}
-
-.service-card:hover .service-card-icon svg {
-  color: var(--color-brand-primary);
-}
-
-/* Text */
 .service-card h3 {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900);
-  margin-bottom: var(--space-3);
+  margin-bottom: 20px;
+
+  color: #08122e;
+
+  font-size: 34px;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .service-card p {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-600);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--space-6);
+  margin-bottom: 32px;
+
+  color: #5d6b82;
+
+  font-size: 20px;
+  line-height: 1.7;
 }
 
-/* Learn more link */
-.service-card-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--color-brand-primary);
-  font-weight: var(--font-weight-semibold);
-  font-size: var(--font-size-sm);
+.service-card a {
+  color: #00a86b;
+
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
-.service-card-link svg {
-  width: 1rem;
-  height: 1rem;
-  transition: transform var(--transition-fast);
-}
-
-.service-card:hover .service-card-link svg {
-  transform: translateX(4px);
+@media (width <= 900px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
 }
