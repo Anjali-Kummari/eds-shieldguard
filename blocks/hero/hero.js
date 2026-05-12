@@ -27,6 +27,10 @@ export default function decorate(block) {
 
   const badge = data['badge text']?.textContent.trim() || '';
 
+  const floatTitle = data['float title']?.textContent.trim() || '';
+
+  const floatBody = data['float body']?.textContent.trim() || '';
+
   const imageElement =
     data.image?.querySelector('picture') ||
     data.image?.querySelector('img');
@@ -65,7 +69,17 @@ export default function decorate(block) {
       </div>
 
       <div class="hero-image">
+
         ${imageHTML}
+
+        <div class="hero-float-card">
+
+          <h3>${floatTitle}</h3>
+
+          <p>${floatBody}</p>
+
+        </div>
+
       </div>
 
     </div>
