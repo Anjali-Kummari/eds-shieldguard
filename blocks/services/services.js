@@ -37,19 +37,19 @@ export default function decorate(block) {
       icon: 'home',
       title: 'Homeowners',
       body: 'Protect your biggest investment from fire, theft, and natural disasters with our comprehensive home policies.',
-      href: '/products/homeowners',
+      href: '/homeowners',
     },
     {
       icon: 'auto',
       title: 'Auto Insurance',
       body: 'Smart coverage for your vehicles. Includes liability, collision, and 24/7 roadside assistance.',
-      href: '/products/auto',
+      href: '/auto',
     },
     {
       icon: 'business',
       title: 'Business P&C',
       body: 'General liability, professional indemnity, and property protection for small to mid-sized businesses.',
-      href: '/products/business',
+      href: '/business',
     },
   ];
 
