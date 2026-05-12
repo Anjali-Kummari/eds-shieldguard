@@ -1,0 +1,251 @@
+/*
+ * ShieldGuard — Quote Flow Block
+ * Multi-step quote form in a large rounded card
+ */
+
+.quote {
+  padding: var(--space-24) var(--container-pad);
+  background-color: var(--color-bg-section-alt);
+}
+
+.quote-inner {
+  max-width: 48rem;
+  margin-inline: auto;
+  background-color: var(--color-white);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border-default);
+  overflow: hidden;
+}
+
+.quote-body {
+  padding: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .quote-body { padding: var(--space-12); }
+}
+
+/* ── Header row ─────────────────────────────────────────── */
+.quote-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-12);
+  gap: var(--space-4);
+}
+
+.quote-header h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--space-1);
+}
+
+.quote-header p {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+  margin: 0;
+}
+
+.quote-step-label {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.quote-step-label span {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+}
+
+.quote-progress {
+  width: 8rem;
+  height: 0.5rem;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-full);
+  margin-top: var(--space-2);
+  overflow: hidden;
+}
+
+.quote-progress-fill {
+  height: 100%;
+  background-color: var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+/* ── Step panels ────────────────────────────────────────── */
+.quote-step { display: none; }
+.quote-step.active { display: block; }
+
+/* Step 1: Type selector grid */
+.quote-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.quote-type-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-2xl);
+  border: 2px solid var(--color-border-default);
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-600);
+  transition: border-color var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+}
+
+.quote-type-btn svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.quote-type-btn:hover {
+  border-color: var(--color-neutral-200);
+}
+
+.quote-type-btn.selected {
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary-xlight);
+  color: var(--color-brand-primary);
+}
+
+/* Step 2/3: field groups */
+.quote-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Step 4: Result */
+.quote-result {
+  text-align: center;
+  padding: var(--space-8) 0;
+}
+
+.quote-result-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-primary-xlight);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+}
+
+.quote-result-icon svg {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-brand-primary);
+}
+
+.quote-result h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-6);
+}
+
+.quote-premium-box {
+  background-color: var(--color-neutral-50);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.quote-premium-box .label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-neutral-500);
+  margin-bottom: var(--space-1);
+}
+
+.quote-premium-amount {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-black);
+  color: var(--color-brand-primary);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: 1;
+}
+
+.quote-coverage-list {
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-4);
+}
+
+.quote-coverage-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-600);
+  margin-bottom: var(--space-2);
+}
+
+.quote-coverage-list li svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-brand-primary);
+  flex-shrink: 0;
+}
+
+.quote-advice {
+  padding: var(--space-4);
+  background-color: var(--color-brand-primary-xlight);
+  border: 1px solid var(--color-brand-primary-border);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-brand-primary-text);
+  margin-bottom: var(--space-6);
+}
+
+/* ── Nav row ────────────────────────────────────────────── */
+.quote-nav {
+  margin-top: var(--space-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quote-back {
+  background: none;
+  border: none;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.quote-back:hover { color: var(--color-neutral-700); }
+.quote-back.hidden { visibility: hidden; }
+
+/* Loading spinner */
+.quote-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-12) 0;
+}
+
+.quote-loading p {
+  color: var(--color-neutral-600);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}

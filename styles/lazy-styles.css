@@ -1,1 +1,335 @@
-/* add global styles that can be loaded post LCP here */
+/*
+ * ShieldGuard — lazy-styles.css
+ * Deferred non-critical styles loaded after LCP
+ */
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes pulse-brand {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(5 150 105 / 0.4); }
+    50% { box-shadow: 0 0 0 8px rgb(5 150 105 / 0); }
+  }
+
+  .animate-fade-up {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .animate-fade-left {
+    animation: fadeInLeft 0.6s ease forwards;
+  }
+
+  .animate-fade-right {
+    animation: fadeInRight 0.6s ease forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.8s ease forwards;
+  }
+
+  .animate-delay-1 { animation-delay: 0.1s; }
+  .animate-delay-2 { animation-delay: 0.2s; }
+  .animate-delay-3 { animation-delay: 0.3s; }
+  .animate-delay-4 { animation-delay: 0.4s; }
+  .animate-delay-5 { animation-delay: 0.5s; }
+
+  .spinner {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border: 4px solid var(--color-brand-primary-light);
+    border-top-color: var(--color-brand-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  .pulse-brand {
+    animation: pulse-brand 2s ease infinite;
+  }
+}
+
+/* ============================================================
+   VIRTUAL ASSISTANT / CHAT WIDGET
+   ============================================================ */
+.virtual-assistant-trigger {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-2xl);
+  transition: transform var(--transition-base), background-color var(--transition-base);
+}
+
+.virtual-assistant-trigger:hover {
+  transform: scale(1.08);
+  background-color: var(--color-brand-primary);
+}
+
+.virtual-assistant-trigger img,
+.virtual-assistant-trigger svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.virtual-assistant-panel {
+  position: fixed;
+  bottom: 6rem;
+  right: var(--space-6);
+  z-index: var(--z-toast);
+  width: 22rem;
+  max-height: 32rem;
+  background-color: var(--color-white);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-2xl);
+  border: 1px solid var(--color-border-default);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.virtual-assistant-header {
+  padding: var(--space-5) var(--space-6);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.virtual-assistant-header h4 {
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.virtual-assistant-body {
+  flex: 1;
+  padding: var(--space-4) var(--space-5);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.chat-message {
+  display: flex;
+  gap: var(--space-3);
+  max-width: 85%;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.chat-message:not(.user) .chat-bubble {
+  background-color: var(--color-neutral-50);
+  color: var(--color-neutral-900);
+  border-bottom-left-radius: var(--space-1);
+}
+
+.chat-message.user .chat-bubble {
+  background-color: var(--color-brand-primary);
+  color: var(--color-white);
+  border-bottom-right-radius: var(--space-1);
+}
+
+.virtual-assistant-input {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border-default);
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.virtual-assistant-input input {
+  flex: 1;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-base);
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.virtual-assistant-input input:focus {
+  border-color: var(--color-brand-primary);
+}
+
+.virtual-assistant-send {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.virtual-assistant-send:hover {
+  background-color: var(--color-brand-primary-hover);
+}
+
+.virtual-assistant-send img,
+.virtual-assistant-send svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-white);
+}
+
+/* ============================================================
+   TOAST NOTIFICATIONS
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-toast);
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  border-radius: var(--radius-xl);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-2xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  animation: fadeInUp 0.3s ease;
+}
+
+.toast-success {
+  background-color: var(--color-brand-primary);
+}
+
+/* ============================================================
+   PROGRESS BAR (Quote Flow)
+   ============================================================ */
+.progress-track {
+  width: 8rem;
+  height: 0.5rem;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* ============================================================
+   IMAGE ASPECT RATIOS
+   ============================================================ */
+.aspect-square { aspect-ratio: 1 / 1; }
+.aspect-video  { aspect-ratio: 16 / 9; }
+.aspect-4-3    { aspect-ratio: 4 / 3; }
+
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================================
+   SCROLLBAR STYLING (Webkit)
+   ============================================================ */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-neutral-50);
+  border-radius: var(--radius-full);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-200);
+  border-radius: var(--radius-full);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-400);
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+  nav, footer, .virtual-assistant-trigger { display: none; }
+  body { font-size: 12pt; color: #000; }
+  a { text-decoration: underline; color: #000; }
+}
