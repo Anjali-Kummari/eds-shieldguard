@@ -1,5 +1,5 @@
 export default function decorate(block) {
-  const rows = [...block.children];
+  const rows = [...block.querySelectorAll(':scope > div')];
 
   const data = {};
 
@@ -13,29 +13,29 @@ export default function decorate(block) {
     }
   });
 
-  const badge = data['badge text']?.textContent.trim() || '';
   const heading = data.heading?.textContent.trim() || '';
+
   const body = data.body?.textContent.trim() || '';
 
   const primaryCTA = data['primary cta']?.textContent.trim() || '';
+
   const primaryLink = data['primary cta link']?.textContent.trim() || '#';
 
   const secondaryCTA = data['secondary cta']?.textContent.trim() || '';
+
   const secondaryLink = data['secondary cta link']?.textContent.trim() || '#';
 
-  const image = data.image?.querySelector('img');
+  const image = data.image?.querySelector('picture,img');
 
-  const imageHTML = image
-    ? `<img src="${image.src}" alt="${image.alt || 'Hero'}" />`
-    : '';
+  const imageHTML = image ? image.outerHTML : '';
 
   block.innerHTML = `
-    <section class="hero-wrapper">
+    <div class="hero-wrapper">
 
       <div class="hero-content">
 
         <div class="hero-badge">
-          ${badge}
+          TOP RATED P&C CARRIER 2024
         </div>
 
         <h1 class="hero-heading">
@@ -47,6 +47,7 @@ export default function decorate(block) {
         </p>
 
         <div class="hero-actions">
+
           <a class="hero-primary-btn" href="${primaryLink}">
             ${primaryCTA}
           </a>
@@ -54,6 +55,7 @@ export default function decorate(block) {
           <a class="hero-secondary-btn" href="${secondaryLink}">
             ${secondaryCTA}
           </a>
+
         </div>
 
       </div>
@@ -62,6 +64,6 @@ export default function decorate(block) {
         ${imageHTML}
       </div>
 
-    </section>
+    </div>
   `;
 }
