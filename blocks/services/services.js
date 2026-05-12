@@ -75,7 +75,7 @@ export default function decorate(block) {
             icon: cardRows[i + 0]?.children[1]?.textContent.trim() || 'shield',
             title: cardRows[i + 1]?.children[1]?.textContent.trim() || 'Coverage',
             body: cardRows[i + 2]?.children[1]?.textContent.trim() || '',
-            href: cardRows[i + 3]?.children[1]?.querySelector('a')?.href || '#',
+            href: cardRows[i + 3]?.children[1]?.textContent.trim() || '#',
           });
         }
       }
