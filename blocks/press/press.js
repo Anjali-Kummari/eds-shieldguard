@@ -3,7 +3,7 @@
  *
  * Reads press releases from the block table rows.
  * Each release is 4 rows: date | category | title | excerpt
- * An optional 5th row per release holds full content (plain HTML/markdown fragment path).
+ * An optional 5th row per release holds full content.
  *
  * Falls back to hard-coded sample data when no content is present.
  */
@@ -13,8 +13,8 @@ const SAMPLE_RELEASES = [
     id: '1',
     date: 'March 20, 2026',
     category: 'Awards',
-    title: "ShieldGuard Named 'Most Innovative Insurer' for 2026",
-    excerpt: "The annual P&C Insurance Awards recognised ShieldGuard for its groundbreaking digital claims platform.",
+    title: 'ShieldGuard Named "Most Innovative Insurer" for 2026',
+    excerpt: 'The annual P&C Insurance Awards recognised ShieldGuard for its groundbreaking digital claims platform.',
     content: `
       <p><strong>NEW YORK, NY — March 20, 2026</strong> — ShieldGuard P&C Insurance has been named the "Most Innovative Insurer" of 2026 by the Global P&C Insurance Awards committee.</p>
       <p>The award recognises ShieldGuard's commitment to leveraging artificial intelligence and machine learning to simplify the insurance lifecycle, from quote generation to claims settlement.</p>
@@ -39,7 +39,7 @@ const SAMPLE_RELEASES = [
     date: 'January 10, 2026',
     category: 'Financials',
     title: 'ShieldGuard Reports Record Growth in Q4 2025',
-    excerpt: "Strong performance in auto and homeowners segments drives a 15% year-over-year increase in written premiums.",
+    excerpt: 'Strong performance in auto and homeowners segments drives a 15% year-over-year increase in written premiums.',
     content: `
       <p><strong>NEW YORK, NY — January 10, 2026</strong> — ShieldGuard P&C Insurance today reported record financial results for Q4 and the full year ended December 31, 2025.</p>
       <ul>
@@ -56,43 +56,10 @@ function categoryBadge(cat) {
     'Product Launch': '#7c3aed',
     Financials: '#0284c7',
   };
+
   const bg = map[cat] || 'var(--color-neutral-700)';
+
   return `<span class="badge" style="background-color:${bg};color:#fff;font-size:var(--font-size-xs);">${cat}</span>`;
-}
-
-function renderList(releases, block) {
-  block.innerHTML = `
-    <div class="press-inner">
-      <div class="press-header">
-        <h1>Newsroom</h1>
-        <p>The latest announcements, product updates, and company news from ShieldGuard.</p>
-      </div>
-      <div class="press-list">
-        ${releases.map((r) => `
-          <div class="press-card" data-release-id="${r.id}" role="button" tabindex="0"
-            aria-label="Read press release: ${r.title}">
-            <div class="press-card-meta">
-              ${categoryBadge(r.category)}
-              <span class="press-card-date">${r.date}</span>
-            </div>
-            <h3>${r.title}</h3>
-            <p>${r.excerpt}</p>
-            <div class="press-card-footer">
-              <span class="link-arrow">Read Full Release</span>
-            </div>
-          </div>`).join('')}
-      </div>
-    </div>`;
-
-  // Bind card clicks
-  block.querySelectorAll('.press-card').forEach((card) => {
-    const handler = () => {
-      const release = releases.find((r) => r.id === card.dataset.releaseId);
-      if (release) renderDetail(release, block, releases);
-    };
-    card.addEventListener('click', handler);
-    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') handler(); });
-  });
 }
 
 function renderDetail(release, block, releases) {
@@ -102,12 +69,16 @@ function renderDetail(release, block, releases) {
         <button class="btn btn-outline" id="press-back" style="margin-bottom:var(--space-8);">
           ← Back to Newsroom
         </button>
+
         <div class="press-detail-meta">
           ${categoryBadge(release.category)}
           <span class="press-detail-date">${release.date}</span>
         </div>
+
         <h1>${release.title}</h1>
+
         <hr class="press-detail-divider">
+
         <div class="prose">${release.content}</div>
       </div>
     </div>`;
@@ -117,25 +88,87 @@ function renderDetail(release, block, releases) {
   });
 }
 
+function renderList(releases, block) {
+  block.innerHTML = `
+    <div class="press-inner">
+      <div class="press-header">
+        <h1>Newsroom</h1>
+        <p>The latest announcements, product updates, and company news from ShieldGuard.</p>
+      </div>
+
+      <div class="press-list">
+        ${releases.map((r) => `
+          <div
+            class="press-card"
+            data-release-id="${r.id}"
+            role="button"
+            tabindex="0"
+            aria-label="Read press release: ${r.title}"
+          >
+            <div class="press-card-meta">
+              ${categoryBadge(r.category)}
+              <span class="press-card-date">${r.date}</span>
+            </div>
+
+            <h3>${r.title}</h3>
+
+            <p>${r.excerpt}</p>
+
+            <div class="press-card-footer">
+              <span class="link-arrow">Read Full Release</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+
+  block.querySelectorAll('.press-card').forEach((card) => {
+    const handler = () => {
+      const release = releases.find(
+        (r) => r.id === card.dataset.releaseId,
+      );
+
+      if (release) {
+        renderDetail(release, block, releases);
+      }
+    };
+
+    card.addEventListener('click', handler);
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        handler();
+      }
+    });
+  });
+}
+
 export default function decorate(block) {
-  // Try to parse releases from document table rows
   const rows = [...block.children];
+
   let releases = SAMPLE_RELEASES;
 
   if (rows.length >= 4) {
     const parsed = [];
+
     let id = 1;
+
     for (let i = 0; i + 3 < rows.length; i += 4) {
       parsed.push({
-        id: String(id++),
-        date: rows[i]?.children[1]?.textContent.trim()     || '',
+        id: String(id),
+        date: rows[i]?.children[1]?.textContent.trim() || '',
         category: rows[i + 1]?.children[1]?.textContent.trim() || 'News',
-        title: rows[i + 2]?.children[1]?.textContent.trim()    || '',
-        excerpt: rows[i + 3]?.children[1]?.textContent.trim()  || '',
-        content: rows[i + 3]?.children[1]?.innerHTML           || '',
+        title: rows[i + 2]?.children[1]?.textContent.trim() || '',
+        excerpt: rows[i + 3]?.children[1]?.textContent.trim() || '',
+        content: rows[i + 3]?.children[1]?.innerHTML || '',
       });
+
+      id += 1;
     }
-    if (parsed.length) releases = parsed;
+
+    if (parsed.length) {
+      releases = parsed;
+    }
   }
 
   renderList(releases, block);
