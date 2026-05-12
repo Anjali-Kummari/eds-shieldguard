@@ -38,29 +38,31 @@ export default function decorate(block) {
           Key Coverage Features
         </h3>
 
-        <div class="features-grid">
+       <div class="features-grid">
 
-          <div class="feature-card">
-            <h4>${data['feature 1 title']?.textContent || ''}</h4>
-            <p>${data['feature 1 body']?.textContent || ''}</p>
-          </div>
+  ${[1, 2, 3, 4].map((i) => `
+    <div class="feature-card">
 
-          <div class="feature-card">
-            <h4>${data['feature 2 title']?.textContent || ''}</h4>
-            <p>${data['feature 2 body']?.textContent || ''}</p>
-          </div>
+      <div class="feature-top">
 
-          <div class="feature-card">
-            <h4>${data['feature 3 title']?.textContent || ''}</h4>
-            <p>${data['feature 3 body']?.textContent || ''}</p>
-          </div>
-
-          <div class="feature-card">
-            <h4>${data['feature 4 title']?.textContent || ''}</h4>
-            <p>${data['feature 4 body']?.textContent || ''}</p>
-          </div>
-
+        <div class="feature-icon">
+          ${data[`feature ${i} icon`]?.textContent || ''}
         </div>
+
+        <h4>
+          ${data[`feature ${i} title`]?.textContent || ''}
+        </h4>
+
+      </div>
+
+      <p>
+        ${data[`feature ${i} body`]?.textContent || ''}
+      </p>
+
+    </div>
+  `).join('')}
+
+</div>
 
         <div class="product-cta">
 
