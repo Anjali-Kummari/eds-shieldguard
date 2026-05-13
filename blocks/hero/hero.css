@@ -18,29 +18,56 @@
   max-width: 620px;
 }
 
-.hero-badge {
-  display: inline-flex;
+/* Badge overlay on image */
+.hero-image {
+  position: relative; /* Make container relative for absolute badge */
+  width: 100%;
+}
+
+.hero-image picture {
+  display: block;
+  width: 100%;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 36px;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 12%);
+}
+
+/* Overlay badge */
+.hero-image .hero-badge {
+  position: absolute;      /* overlay on image */
+  bottom: 20px;            /* distance from bottom */
+  left: 20px;              /* distance from left */
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
   align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
 
-  padding: 10px 18px;
-  margin-bottom: 24px;
+.hero-image .hero-badge svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
 
-  border-radius: 999px;
-
-  background: #e7f8ef;
-  color: #00a86b;
-
-  font-size: 14px;
+.hero-badge span {
   font-weight: 700;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: 14px;
+  color: #00a86b;
 }
 
 .hero-heading {
   margin: 0 0 24px;
-
   color: #08122e;
-
   font-size: clamp(52px, 8vw, 92px);
   line-height: 0.95;
   font-weight: 800;
@@ -49,9 +76,7 @@
 
 .hero-body {
   margin-bottom: 36px;
-
   color: #4f5d75;
-
   font-size: 22px;
   line-height: 1.6;
 }
@@ -97,38 +122,11 @@
   color: #fff;
 }
 
-.hero-image {
-  width: 100%;
-}
-
-.hero-image picture {
-  display: block;
-  width: 100%;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 100%;
-
-  border-radius: 36px;
-
-  display: block;
-
-  object-fit: cover;
-
-  box-shadow: 0 30px 60px rgb(0 0 0 / 12%);
-}
-
 @media (width >= 900px) {
   .hero-wrapper {
     grid-template-columns: 1.1fr 1fr;
     gap: 80px;
-
     padding: 100px 48px 140px;
-  }
-
-  .hero-image {
-    width: 100%;
   }
 
   .hero-image img {
@@ -151,5 +149,10 @@
   .hero-image img {
     width: 100%;
     height: auto;
+  }
+
+  .hero-image .hero-badge {
+    bottom: 16px;
+    left: 16px;
   }
 }
