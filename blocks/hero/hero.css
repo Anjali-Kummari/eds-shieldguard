@@ -124,7 +124,7 @@
     grid-template-columns: 1.1fr 1fr;
     gap: 80px;
 
-    padding: 100px 48px 140px;
+    padding: 10px 48px 140px;
   }
 
   .hero-image {
