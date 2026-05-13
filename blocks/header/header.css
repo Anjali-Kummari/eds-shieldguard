@@ -46,6 +46,8 @@ header .header-brand {
   gap: var(--space-2);
   text-decoration: none;
   flex-shrink: 0;
+  height: 2rem;
+  width: 2rem;
 }
 
 header .header-brand img {
