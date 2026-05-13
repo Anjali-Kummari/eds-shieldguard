@@ -1,199 +1,122 @@
-/*
- * ShieldGuard — Header Block
- * Fixed top nav: white/blur background, emerald brand color, pill CTA
- */
-
-/* ============================================================
-   NAV WRAPPER
-   ============================================================ */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: var(--z-nav);
-  background-color: rgb(255 255 255 / 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgb(0 0 0 / 0.05);
-  transition: box-shadow var(--transition-base);
-}
-
-header.scrolled {
-  box-shadow: var(--shadow-md);
-}
-
-/* ============================================================
-   INNER LAYOUT
-   ============================================================ */
-header .header-wrapper {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-pad);
-  height: var(--nav-height);
+/* ── Header Wrapper ────────────────────────────────────── */
+.header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-8);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  gap: 24px;
 }
 
-/* ============================================================
-   BRAND / LOGO
-   ============================================================ */
-header .header-brand {
+/* ── Brand / Logo ─────────────────────────────────────── */
+.header-brand {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 0.5rem;
   text-decoration: none;
   flex-shrink: 0;
-  height: 2rem;
-  width: 2rem;
 }
 
-header .header-brand img {
+.header-brand .brand-icon {
   width: 2rem;
   height: 2rem;
-  display: block;
-  color: var(--color-brand-primary);
+  color: #00a86b;
+  flex-shrink: 0;
 }
 
-header .header-brand .brand-name {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900);
-  letter-spacing: var(--letter-spacing-tight);
+.header-brand .brand-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #08122e;
   white-space: nowrap;
 }
 
-/* ============================================================
-   DESKTOP NAV LINKS
-   ============================================================ */
-header nav {
-  display: none;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-@media (min-width: 768px) {
-  header nav {
-    display: flex;
-  }
-}
-
-header nav a {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-neutral-600);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-  white-space: nowrap;
-}
-
-header nav a:hover,
-header nav a[aria-current='page'] {
-  color: var(--color-brand-primary);
-}
-
-/* CTA button in nav */
-header nav .nav-cta {
-  background-color: var(--color-neutral-900);
-  color: var(--color-white);
-  padding: var(--space-2) var(--space-5);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  transition: background-color var(--transition-fast);
-  white-space: nowrap;
-}
-
-header nav .nav-cta:hover {
-  background-color: var(--color-neutral-800);
-  color: var(--color-white);
-}
-
-/* ============================================================
-   MOBILE HAMBURGER
-   ============================================================ */
-header .nav-toggle {
+/* ── Desktop Navigation ───────────────────────────────── */
+.header-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--color-neutral-600);
-  border-radius: var(--radius-md);
-  transition: background-color var(--transition-fast);
+  gap: 24px;
 }
 
-header .nav-toggle:hover {
-  background-color: var(--color-neutral-100);
+.header-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #08122e;
+  transition: color 0.2s;
 }
 
-header .nav-toggle svg {
-  width: 1.5rem;
-  height: 1.5rem;
+.header-nav a:hover {
+  color: #00a86b;
 }
 
-@media (min-width: 768px) {
-  header .nav-toggle { display: none; }
+.header-nav a[aria-current="page"] {
+  font-weight: 800;
+  color: #00a86b;
 }
 
-/* ============================================================
-   MOBILE MENU
-   ============================================================ */
-header .nav-mobile {
+/* ── CTA Button ───────────────────────────────────────── */
+.nav-cta {
+  background-color: #08122e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nav-cta:hover {
+  background-color: #0f1f4d;
+}
+
+/* ── Mobile Toggle ────────────────────────────────────── */
+.nav-toggle {
   display: none;
-  border-top: 1px solid rgb(0 0 0 / 0.05);
-  background-color: var(--color-white);
-  padding: var(--space-6) var(--container-pad);
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-header .nav-mobile.open {
-  display: block;
+/* ── Mobile Navigation ────────────────────────────────── */
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 24px;
+  background-color: #fff;
 }
 
-@media (min-width: 768px) {
-  header .nav-mobile { display: none !important; }
-}
-
-header .nav-mobile a {
-  display: block;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-neutral-900);
-  padding: var(--space-3) 0;
+.nav-mobile a {
   text-decoration: none;
-  border-bottom: 1px solid var(--color-border-default);
-  transition: color var(--transition-fast);
+  font-weight: 600;
+  color: #08122e;
 }
 
-header .nav-mobile a:last-of-type {
-  border-bottom: none;
+.nav-mobile a.nav-mobile-cta {
+  background-color: #08122e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
 }
 
-header .nav-mobile a:hover {
-  color: var(--color-brand-primary);
+/* ── Toggle Mobile Menu Active ───────────────────────── */
+.nav-mobile.open {
+  display: flex;
 }
 
-header .nav-mobile .nav-mobile-cta {
-  display: block;
-  margin-top: var(--space-5);
-  width: 100%;
-  background-color: var(--color-brand-primary);
-  color: var(--color-white);
-  text-align: center;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-xl);
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
-  transition: background-color var(--transition-fast);
-}
+/* ── Responsive Breakpoints ──────────────────────────── */
+@media (max-width: 900px) {
+  .header-wrapper {
+    justify-content: space-between;
+  }
 
-header .nav-mobile .nav-mobile-cta:hover {
-  background-color: var(--color-brand-primary-hover);
-  color: var(--color-white);
+  .header-nav {
+    display: none; /* hide desktop nav on mobile */
+  }
+
+  .nav-toggle {
+    display: block; /* show hamburger toggle */
+  }
 }
