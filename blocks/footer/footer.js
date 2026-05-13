@@ -46,7 +46,7 @@ export default async function decorate(block) {
     <h4>Company</h4>
     <ul>
       <li><a href="/about">About Us</a></li>
-      <li><a href="/careers">Careers</a></li>
+      <li><a href="/home">Careers</a></li>
       <li><a href="/press">Press</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>`;
