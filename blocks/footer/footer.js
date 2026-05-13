@@ -34,8 +34,8 @@ export default async function decorate(block) {
     <h4>Insurance</h4>
     <ul>
       <li><a href="/products/homeowners">Homeowners</a></li>
-      <li><a href="/auto">Auto Insurance</a></li>
-      <li><a href="/business">Business Owners</a></li>
+      <li><a href="/products/auto">Auto Insurance</a></li>
+      <li><a href="/products/business">Business Owners</a></li>
       <li><a href="/resources">Resource Center</a></li>
     </ul>`;
 
