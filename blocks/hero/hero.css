@@ -132,8 +132,10 @@
   }
 
   .hero-image img {
-    width: 100%;
-    height: auto;
+    margin-left: 61px;
+    width: 605px;
+    height: 393px;
+    max-width: unset;
   }
 }
 
