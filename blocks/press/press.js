@@ -92,8 +92,8 @@ function renderList(releases, block) {
   block.innerHTML = `
     <div class="press-inner">
       <div class="press-header">
-        <h1>Newsroom</h1>
-        <p>The latest announcements, product updates, and company news from ShieldGuard.</p>
+        <h1>Press & Media Center</h1>
+        <p>The latest news, announcements, and media resources from ShieldGuard. We're committed to transparency and sharing our journey as we redefine the insurance industry.</p>
       </div>
 
       <div class="press-list">
