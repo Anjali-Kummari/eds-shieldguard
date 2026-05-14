@@ -162,3 +162,11 @@
     margin-left: 135px;
     margin-top: 10px;
   }
+@media (min-width: 900px) {
+    .hero-image img {
+        margin-left: 61px;
+        width: 605px;
+        height: 393px;
+        max-width: unset;
+    }
+}
