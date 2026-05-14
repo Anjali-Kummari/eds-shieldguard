@@ -1,12 +1,17 @@
+/* ============================= */
+/* Header - Fully Fluid Responsive */
+/* ============================= */
+
 /* ── Header Wrapper ────────────────────────────────────── */
 .header-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 16px 24px;
-  gap: 24px;
+  padding: 1rem 4%;
+  gap: clamp(0.5rem, 2vw, 2rem); /* fluid gap */
+  box-sizing: border-box;
 }
 
 /* ── Brand / Logo ─────────────────────────────────────── */
@@ -26,7 +31,7 @@
 }
 
 .header-brand .brand-name {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   font-weight: 800;
   color: #08122e;
   white-space: nowrap;
@@ -36,9 +41,9 @@
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-left: 501px;
-  
+  gap: clamp(1rem, 2vw, 2rem); /* fluid spacing between links */
+  margin-left: auto;
+  flex-wrap: wrap;
 }
 
 .header-nav a {
@@ -46,6 +51,7 @@
   font-weight: 600;
   color: #151414;
   transition: color 0.2s;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
 }
 
 .header-nav a:hover {
@@ -61,11 +67,12 @@
 .nav-cta {
   background-color: #7666b7;
   color: #fff;
-  padding: 10px 20px;
+  padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 2vw, 2rem);
   border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
   transition: background-color 0.2s;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
 .nav-cta:hover {
@@ -84,23 +91,27 @@
 .nav-mobile {
   display: none;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px 24px;
+  gap: 1rem;
+  padding: 1rem 4%;
   background-color: #fff;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .nav-mobile a {
   text-decoration: none;
   font-weight: 600;
   color: #08122e;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
 }
 
 .nav-mobile a.nav-mobile-cta {
   background-color: #08122e;
   color: #fff;
-  padding: 10px 20px;
+  padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 2vw, 2rem);
   border-radius: 999px;
   font-weight: 700;
+  text-align: center;
 }
 
 /* ── Toggle Mobile Menu Active ───────────────────────── */
@@ -109,16 +120,31 @@
 }
 
 /* ── Responsive Breakpoints ──────────────────────────── */
-@media (max-width: 900px) {
-  .header-wrapper {
-    justify-content: space-between;
+@media (max-width: 1024px) {
+  .header-nav {
+    gap: clamp(0.5rem, 2vw, 1.5rem);
   }
+}
 
+@media (max-width: 900px) {
   .header-nav {
     display: none; /* hide desktop nav on mobile */
   }
 
   .nav-toggle {
     display: block; /* show hamburger toggle */
+  }
+}
+
+@media (max-width: 600px) {
+  .header-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 2%;
+  }
+
+  .nav-mobile {
+    gap: 0.75rem;
   }
 }
