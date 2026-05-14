@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-left: auto; /* <-- this pushes the nav to the far right */
+  margin-left: 500px; /* <-- this pushes the nav to the far right */
 }
 
 .header-nav a {
