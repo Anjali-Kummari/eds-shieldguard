@@ -1,49 +1,46 @@
 /*
  * ShieldGuard — Footer Block
- * Dark slate footer with emerald accents, 4-column grid
+ * Fully fluid responsive
  */
 
 footer {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-
+  width: 100%;
   background-color: var(--color-bg-dark);
   color: var(--color-white);
-
   padding-top: var(--space-20);
   padding-bottom: var(--space-10);
-}
-
-.footer-wrapper {
-  width: 1265px;
-  
-
-  margin-inline: auto;
-  padding-inline: var(--container-pad);
-
   box-sizing: border-box;
 }
 
-/* ── Top grid ───────────────────────────────────────────── */
+.footer-wrapper {
+  width: 100%;
+  max-width: 1400px;      /* max container width */
+  margin: 0 auto;
+  padding: 0 24px;        /* fluid padding on sides */
+  box-sizing: border-box;
+}
+
+/* ── Top grid ────────────────────────────────────────── */
 .footer-grid {
   display: grid;
   gap: var(--space-12);
   margin-bottom: var(--space-16);
+  grid-template-columns: 1fr; /* default single column for mobile */
 }
 
 @media (min-width: 640px) {
   .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on tablets */
   }
 }
 
 @media (min-width: 1024px) {
   .footer-grid {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr; /* 4 columns on desktop */
   }
 }
 
-/* ── Brand column ───────────────────────────────────────── */
+/* ── Brand column ───────────────────────────────────── */
 .footer-brand {
   display: flex;
   flex-direction: column;
@@ -54,43 +51,35 @@ footer {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-
   text-decoration: none;
 }
 
 .footer-brand-logo svg {
   width: 2rem;
   height: 2rem;
-
   color: var(--color-brand-accent);
+  flex-shrink: 0;
 }
 
 .footer-brand-logo .brand-name {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-white);
-
-  letter-spacing: var(--letter-spacing-tight);
+  white-space: nowrap;
 }
 
 .footer-tagline {
   margin: 0;
-
   color: #94a3b8;
-
   font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
+  line-height: 1.5;
 }
 
-/* ── Social icons ───────────────────────────────────────── */
+/* ── Social icons ────────────────────────────────────── */
 .footer-social {
   display: flex;
   gap: var(--space-4);
-
-  margin: 0;
   padding: 0;
-
   list-style: none;
 }
 
@@ -98,37 +87,27 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 2.5rem;
   height: 2.5rem;
-
-  border-radius: var(--radius-full);
-
+  border-radius: 50%;
   background-color: #1e293b;
-  color: var(--color-white);
-
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-
+  color: #fff;
+  font-size: 0.875rem;
   text-decoration: none;
-
-  transition: background-color var(--transition-fast);
+  transition: background-color 0.2s;
 }
 
 .footer-social li a:hover {
   background-color: var(--color-brand-primary);
 }
 
-/* ── Link columns ───────────────────────────────────────── */
+/* ── Link columns ────────────────────────────────────── */
 .footer-col h4 {
   margin-bottom: var(--space-6);
-
-  color: var(--color-white);
-
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
-
-  letter-spacing: var(--letter-spacing-wide);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -136,56 +115,45 @@ footer {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-
   margin: 0;
   padding: 0;
-
   list-style: none;
 }
 
 .footer-col ul li a {
   color: #94a3b8;
-
-  font-size: var(--font-size-sm);
-
+  font-size: 0.875rem;
   text-decoration: none;
-
-  transition: color var(--transition-fast);
+  transition: color 0.2s;
 }
 
 .footer-col ul li a:hover {
   color: var(--color-brand-accent);
 }
 
-/* ── Contact items ──────────────────────────────────────── */
+/* ── Contact items ───────────────────────────────────── */
 .footer-contact-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-
   color: #94a3b8;
-
-  font-size: var(--font-size-sm);
+  font-size: 0.875rem;
 }
 
 .footer-contact-item svg {
   width: 1rem;
   height: 1rem;
-
   flex-shrink: 0;
 }
 
-/* ── Bottom bar ─────────────────────────────────────────── */
+/* ── Bottom bar ─────────────────────────────────────── */
 .footer-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-6);
-
   padding-top: var(--space-10);
-
   border-top: 1px solid #1e293b;
-
   text-align: center;
 }
 
@@ -193,7 +161,6 @@ footer {
   .footer-bottom {
     flex-direction: row;
     justify-content: space-between;
-
     text-align: left;
   }
 }
@@ -201,33 +168,47 @@ footer {
 .footer-bottom p,
 .footer-copyright {
   margin: 0;
-
   color: #64748b;
-
-  font-size: var(--font-size-xs);
+  font-size: 0.75rem;
 }
 
-/* ── Legal links ────────────────────────────────────────── */
+/* ── Legal links ─────────────────────────────────────── */
 .footer-legal {
   display: flex;
-  gap: var(--space-8);
-
+  gap: var(--space-6);
   margin: 0;
   padding: 0;
-
   list-style: none;
 }
 
 .footer-legal li a {
   color: #64748b;
-
-  font-size: var(--font-size-xs);
-
+  font-size: 0.75rem;
   text-decoration: none;
-
-  transition: color var(--transition-fast);
+  transition: color 0.2s;
 }
 
 .footer-legal li a:hover {
   color: #94a3b8;
+}
+
+/* ── Fluid adjustments ───────────────────────────────── */
+@media (max-width: 640px) {
+  .footer-wrapper {
+    padding: 0 16px;
+  }
+
+  .footer-grid {
+    gap: 16px;
+  }
+
+  .footer-brand-logo .brand-name {
+    font-size: 1rem;
+  }
+
+  .footer-col h4,
+  .footer-col ul li a,
+  .footer-contact-item {
+    font-size: 0.75rem;
+  }
 }
