@@ -16,7 +16,7 @@ footer {
   width: 100%;
   max-width: 1400px;      /* max container width */
   margin: 0 auto;
-  padding: 0 24px;        /* fluid padding on sides */
+  padding: 10px 24px;        /* fluid padding on sides */
   box-sizing: border-box;
 }
 
