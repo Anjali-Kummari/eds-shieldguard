@@ -1,127 +1,47 @@
-/* ── Header Wrapper ────────────────────────────────────── */
 .header-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* logo left, nav/hamburger right */
-  max-width: 1400px;
-  margin: 0 auto;
+  justify-content: space-between; /* Logo left, nav-wrapper right */
   padding: 16px 24px;
-  flex-wrap: wrap; /* allows wrapping on small screens */
-  box-sizing: border-box;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes nav + CTA to right */
   gap: 24px;
 }
 
-/* ── Brand / Logo ─────────────────────────────────────── */
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.header-brand .brand-icon {
-  width: 2rem;
-  height: 2rem;
-  color: #00a86b;
-  flex-shrink: 0;
-}
-
-.header-brand .brand-name {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #08122e;
-  white-space: nowrap;
-}
-
-/* ── Desktop Navigation ───────────────────────────────── */
 .header-nav {
   display: flex;
-  align-items: center;
   gap: 24px;
 }
 
-.header-nav a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #151414;
-  transition: color 0.2s;
-}
-
-.header-nav a:hover {
-  color: #00a86b;
-}
-
-.header-nav a[aria-current="page"] {
-  font-weight: 800;
-  color: #00a86b;
-}
-
-/* ── CTA Button ───────────────────────────────────────── */
-.nav-cta {
-  background-color: #7666b7;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.nav-cta:hover {
-  background-color: #0f1f4d;
-}
-
-/* ── Mobile Toggle (Hamburger) ───────────────────────── */
 .nav-toggle {
-  display: none; /* hidden on desktop */
-  background: none;
-  border: none;
-  cursor: pointer;
+  display: none; /* default hidden */
 }
 
-/* ── Mobile Navigation ────────────────────────────────── */
 .nav-mobile {
-  display: none;
+  display: none; /* hidden by default */
   flex-direction: column;
   gap: 16px;
   padding: 16px 24px;
-  background-color: #fff;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 99;
 }
 
-.nav-mobile a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #08122e;
-}
-
-.nav-mobile a.nav-mobile-cta {
-  background-color: #08122e;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-weight: 700;
-}
-
-/* ── Show Mobile Menu When Open ──────────────────────── */
 .nav-mobile.open {
   display: flex;
 }
 
-/* ── Responsive Breakpoints ──────────────────────────── */
-@media (max-width: 900px) {
-  /* Hide desktop nav + CTA */
-  .header-nav,
-  .nav-cta {
-    display: none;
-  }
+.nav-cta {
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #7666b7;
+  color: #fff;
+  text-decoration: none;
+}
 
-  /* Show hamburger toggle */
-  .nav-toggle {
-    display: block;
-    margin-left: auto; /* push to right */
-  }
+/* Mobile breakpoints */
+@media (max-width: 900px) {
+  .nav-wrapper { display: none; } /* hide desktop nav */
+  .nav-toggle { display: block; } /* show hamburger */
 }
