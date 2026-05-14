@@ -1,47 +1,123 @@
+/* ── Header Wrapper ────────────────────────────────────── */
 .header-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Logo left, nav-wrapper right */
+  justify-content: space-between; /* keeps logo left, nav right */
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 16px 24px;
+  gap: 24px;
 }
 
-.nav-wrapper {
+/* ── Brand / Logo ─────────────────────────────────────── */
+.header-brand {
   display: flex;
   align-items: center;
-  margin-left: auto; /* Pushes nav + CTA to right */
-  gap: 24px;
+  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
+.header-brand .brand-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #00a86b;
+}
+
+.header-brand .brand-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #08122e;
+  white-space: nowrap;
+}
+
+/* ── Desktop Navigation ───────────────────────────────── */
 .header-nav {
   display: flex;
+  align-items: center;
   gap: 24px;
+  margin-left: 500px; /* <-- this pushes the nav to the far right */
 }
 
+.header-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #151414;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover {
+  color: #00a86b;
+}
+
+.header-nav a[aria-current="page"] {
+  font-weight: 800;
+  color: #00a86b;
+}
+
+/* ── CTA Button ───────────────────────────────────────── */
+.nav-cta {
+  background-color: #7666b7;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.nav-cta:hover {
+  background-color: #0f1f4d;
+}
+
+/* ── Mobile Toggle ────────────────────────────────────── */
 .nav-toggle {
-  display: none; /* default hidden */
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
+/* ── Mobile Navigation ────────────────────────────────── */
 .nav-mobile {
-  display: none; /* hidden by default */
+  display: none;
   flex-direction: column;
   gap: 16px;
   padding: 16px 24px;
+  background-color: #fff;
 }
 
+.nav-mobile a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #08122e;
+}
+
+.nav-mobile a.nav-mobile-cta {
+  background-color: #08122e;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* ── Toggle Mobile Menu Active ───────────────────────── */
 .nav-mobile.open {
   display: flex;
 }
 
-.nav-cta {
-  padding: 10px 20px;
-  border-radius: 999px;
-  background: #7666b7;
-  color: #fff;
-  text-decoration: none;
-}
-
-/* Mobile breakpoints */
+/* ── Responsive Breakpoints ──────────────────────────── */
 @media (max-width: 900px) {
-  .nav-wrapper { display: none; } /* hide desktop nav */
-  .nav-toggle { display: block; } /* show hamburger */
+  .header-wrapper {
+    flex-wrap: wrap; /* allows logo + nav to wrap on small screens */
+    justify-content: space-between;
+  }
+
+  .header-nav {
+    display: none; /* hide desktop nav on mobile */
+  }
+
+  .nav-toggle {
+    display: block; /* show hamburger toggle */
+  }
 }
