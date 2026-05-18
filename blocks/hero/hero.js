@@ -20,7 +20,7 @@ export default function decorate(block) {
 
   const badgeText  = get(0) || 'Top Rated P&C Carrier 2024';
   const headingRaw = get(1) || 'Protection for what matters most.';
-  const bodyText   = get(2) || 'Comprehensive property and casualty insurance tailored to your life. From your home to your business, we have got you covered with smart, simple protection.';
+  const bodyText   = get(2) || 'Comprehensive property and casualty insurance tailored to your life.';
   const primaryCTA = get(3) || 'Start My Quote';
   const primaryHref = rows[4]?.children[1]?.querySelector('a')?.href || '/#quote';
   const secondaryCTA  = get(5) || 'View Claims';
