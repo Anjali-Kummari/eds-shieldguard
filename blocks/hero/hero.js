@@ -12,11 +12,15 @@
  * | Float title   | Instant Approval                   |
  * | Float body    | 98% of policies…                   |
  *
- * Heading split rule:
- *   If the heading contains a known split keyword (what / how / why / your / the)
- *   everything from that word onward is wrapped in <em> for the brand colour.
- *   The split is done on a WORD BOUNDARY only — never mid-word — so the
- *   browser can always wrap the text naturally at any viewport width.
+ * Heading split:
+ *   The heading is split into two lines — "Protection for" on line 1,
+ *   "what matters most." on line 2 (in brand green).
+ *   We achieve this by wrapping the tail in <em> which hero.css renders
+ *   as display:block on mobile (so it sits on its own line and respects
+ *   the column width), and display:inline on tablet/desktop centred layout.
+ *
+ *   This eliminates the incognito clipping bug where an inline <em> ran
+ *   past the column edge before the browser had parsed the full stylesheet.
  */
 export default function decorate(block) {
   const rows = [...block.children];
@@ -34,38 +38,32 @@ export default function decorate(block) {
   const floatTitle    = get(8) || 'Instant Approval';
   const floatBody     = get(9) || '98% of our basic policies are approved within minutes.';
 
-  /* ── Build heading HTML ──────────────────────────────────
-   * Split on the FIRST occurrence of a trigger word so the <em>
-   * always starts at a word boundary. This avoids any chance of
-   * an unbreakable inline run causing overflow on narrow screens.
-   * ──────────────────────────────────────────────────────── */
+  /* ── Heading split ───────────────────────────────────────
+   * Strategy: find the LAST preposition / article before the
+   * meaningful tail, split there so the <em> block is a coherent
+   * phrase. Split on word boundary only — never mid-word.
+   * ─────────────────────────────────────────────────────── */
   function buildHeading(raw) {
-    // If author already put <em> tags in, respect them
-    if (raw.includes('<em>')) return raw;
+    // Strip any existing em tags from document content
+    const clean = raw.replace(/<\/?em>/gi, '');
 
-    // Find the first word-boundary split point
-    const TRIGGERS = ['what', 'how', 'why', 'your', 'the', 'for', 'with'];
-    const lower = raw.toLowerCase();
+    // Trigger words — split AFTER the space preceding this word
+    const TRIGGERS = ['what ', 'how ', 'why ', 'your ', 'that ', 'with '];
+    const lower = clean.toLowerCase();
 
     for (const trigger of TRIGGERS) {
-      // Match the trigger only at a word boundary with a space before it
-      const idx = lower.indexOf(` ${trigger} `);
-      if (idx !== -1) {
-        // Split AFTER the space so the em starts cleanly on the keyword
-        const splitAt = idx + 1; // +1 to skip the leading space
-        return `${raw.slice(0, splitAt)}<em>${raw.slice(splitAt)}</em>`;
+      const idx = lower.indexOf(trigger);
+      if (idx > 0) {
+        const head = clean.slice(0, idx).trimEnd();
+        const tail = clean.slice(idx);
+        return `${head} <em>${tail}</em>`;
       }
     }
 
-    // Fallback: italicise the last two words
-    const words = raw.trim().split(' ');
-    if (words.length > 2) {
-      const pivot = words.slice(0, -2).join(' ');
-      const tail  = words.slice(-2).join(' ');
-      return `${pivot} <em>${tail}</em>`;
-    }
-
-    return raw; // too short to split
+    // Fallback: last 40% of words go into em
+    const words = clean.trim().split(' ');
+    const splitAt = Math.max(1, Math.floor(words.length * 0.6));
+    return `${words.slice(0, splitAt).join(' ')} <em>${words.slice(splitAt).join(' ')}</em>`;
   }
 
   /* ── Image markup ────────────────────────────────────── */
