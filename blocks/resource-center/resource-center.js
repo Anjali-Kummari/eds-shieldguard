@@ -199,19 +199,21 @@ export default function decorate(block) {
   if (rows.length >= 6) {
     const parsed = [];
     let id = 1;
-    for (let i = 0; i + 5 < rows.length; i += 6) {
-      parsed.push({
-        id: String(id++),
-        category: rows[i]?.children[1]?.textContent.trim()     || 'General',
-        title:    rows[i + 1]?.children[1]?.textContent.trim() || '',
-        excerpt:  rows[i + 2]?.children[1]?.textContent.trim() || '',
-        content:  rows[i + 3]?.children[1]?.innerHTML          || '',
-        date:     rows[i + 4]?.children[1]?.textContent.trim() || '',
-        readTime: rows[i + 5]?.children[1]?.textContent.trim() || '5 min read',
-        image:    rows[i + 5]?.children[1]?.querySelector('img')?.src
-                  || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800',
-      });
-    }
+   for (let i = 0; i + 7 < rows.length; i += 8) {
+  parsed.push({
+    id: String(id++),
+    category: rows[i]?.children[1]?.textContent.trim() || 'General',
+    title: rows[i + 1]?.children[1]?.textContent.trim() || '',
+    excerpt: rows[i + 2]?.children[1]?.textContent.trim() || '',
+    content: rows[i + 3]?.children[1]?.innerHTML || '',
+    date: rows[i + 4]?.children[1]?.textContent.trim() || '',
+    readTime: rows[i + 5]?.children[1]?.textContent.trim() || '5 min read',
+    link: rows[i + 6]?.children[1]?.textContent.trim() || '',
+    image:
+      rows[i + 7]?.children[1]?.querySelector('img')?.src ||
+      'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800',
+  });
+}
     if (parsed.length) articles = parsed;
   }
 
