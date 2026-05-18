@@ -1,172 +1,217 @@
-.hero-container {
-  width: 100%;
+/*
+ * ShieldGuard — Hero Block
+ * Full-width two-column hero: text left, image right with floating badge
+ */
+
+.hero {
+  padding-top: calc(var(--nav-height) + var(--space-16));
+  padding-bottom: var(--space-20);
+  padding-inline: var(--container-pad);
 }
 
-.hero-wrapper {
+.hero-inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
   display: grid;
-  grid-template-columns: 1fr;
+  gap: var(--space-12);
   align-items: center;
-  gap: 64px;
-
-  max-width: 1400px;
-  margin: 0 auto;
-
-  padding: 80px 24px 120px;
 }
 
+@media (min-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Text side ──────────────────────────────────────────── */
 .hero-content {
-  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
-
-  padding: 10px 18px;
-  margin-bottom: 24px;
-
-  border-radius: 999px;
-
-  background: #e7f8ef;
-  color: #00a86b;
-
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-brand-primary-xlight);
+  border: 1px solid var(--color-brand-primary-border);
+  color: var(--color-brand-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-wider);
   text-transform: uppercase;
+  margin-bottom: var(--space-6);
+  width: fit-content;
 }
 
-.hero-heading {
-  margin: 0 0 24px;
-
-  color: #08122e;
-
-  font-size: clamp(52px, 8vw, 92px);
-  line-height: 0.95;
-  font-weight: 800;
-  letter-spacing: -2px;
+.hero-badge .badge-star {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--color-brand-primary);
+  stroke: none;
 }
 
-.hero-body {
-  margin-bottom: 36px;
-
-  color: #4f5d75;
-
-  font-size: 22px;
-  line-height: 1.6;
+.hero-content h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-neutral-900);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin-bottom: var(--space-6);
 }
 
-.hero-actions {
+@media (min-width: 1024px) {
+  .hero-content h1 { font-size: var(--font-size-7xl); }
+}
+
+.hero-content h1 em {
+  font-style: normal;
+  color: var(--color-brand-primary);
+}
+
+.hero-content p {
+  font-size: var(--font-size-lg);
+  color: var(--color-neutral-600);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-8);
+  max-width: 32rem;
+}
+
+.hero-ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
-.hero-primary-btn,
-.hero-secondary-btn {
-  display: inline-flex;
+/* ── Image side ─────────────────────────────────────────── */
+.hero-visual {
+  position: relative;
+}
+
+.hero-image-wrap {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-3xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-2xl);
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Floating card */
+.hero-float-card {
+  position: absolute;
+  bottom: -1.5rem;
+  left: -1.5rem;
+  background-color: var(--color-white);
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-neutral-100);
+  max-width: 16rem;
+}
+
+.hero-float-card .card-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.hero-float-card .card-icon-wrap {
+  display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 16px 28px;
-
-  border-radius: 999px;
-
-  font-weight: 700;
-  text-decoration: none;
-
-  transition: all 0.2s ease;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-brand-primary-xlight);
+  flex-shrink: 0;
 }
 
-.hero-primary-btn {
-  background: #00a86b;
-  color: #fff;
+.hero-float-card .card-icon-wrap svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-brand-primary);
 }
 
-.hero-primary-btn:hover {
-  background: #0f1f4d;
+.hero-float-card .card-title {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  font-size: var(--font-size-sm);
 }
 
-.hero-secondary-btn {
-  border: 2px solid #08122e;
-  color: #08122e;
+.hero-float-card p {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-500);
+  margin: 0;
+  line-height: var(--line-height-normal);
 }
 
-.hero-secondary-btn:hover {
-  background: #08122e;
-  color: #fff;
-}
-
-.hero-image {
-  width: 100%;
-}
-
-.hero-image picture {
-  display: block;
-  width: 100%;
-}
-
-.hero-image img {
-  width: 100%;
-  max-width: 100%;
-
-  border-radius: 36px;
-
-  display: block;
-
-  object-fit: cover;
-
-  box-shadow: 0 30px 60px rgb(0 0 0 / 12%);
-}
-
-@media (width >= 900px) {
-  .hero-wrapper {
-    grid-template-columns: 1.1fr 1fr;
-    gap: 80px;
-
-    padding: 10px 48px 140px;
-  }
-
-  .hero-image {
-    width: 100%;
-  }
-
-  .hero-image img {
-    margin-left: 61px;
-    width: 605px;
-    height: 393px;
-    max-width: unset;
-  }
-}
-
-@media (width <= 900px) {
-  .hero-heading {
-    font-size: 64px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: auto;
-  }
-}
-
+/* ── Responsive visual offset ───────────────────────────── */
+@media (max-width: 1023px) {
   .hero-float-card {
-    background: #f8f8f8;
-    border-radius: 10px;
-    padding: 20px 80px 20px 20px;
-    margin-right: 82px;
-    margin-left: 135px;
-    margin-top: 10px;
+    bottom: -1rem;
+    left: var(--space-4);
   }
-@media (min-width: 900px) {
-    .hero-image img {
-        margin-left: 61px;
-        width: 605px;
-        height: 393px;
-        max-width: unset;
-    }
+}
+
+@media (max-width: 479px) {
+  .hero-float-card { display: none; }
+}
+
+/* ============================================================
+   HERO — RESPONSIVE ADDITIONS
+   ============================================================ */
+
+/* XS — single column, compact */
+@media (max-width: 479px) {
+  .hero {
+    padding-top: calc(var(--nav-height) + var(--space-8));
+    padding-bottom: var(--space-12);
+    padding-inline: var(--space-4);
+  }
+  .hero-content h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-4);
+  }
+  .hero-content p {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-6);
+  }
+  .hero-badge { font-size: 0.65rem; }
+  .hero-image-wrap { aspect-ratio: 4 / 3; border-radius: var(--radius-2xl); }
+  .hero-float-card { display: none; }
+}
+
+/* SM — slightly more breathing room */
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero-content h1 { font-size: var(--font-size-4xl); }
+  .hero-content p  { font-size: var(--font-size-base); }
+  .hero-float-card { display: none; }
+}
+
+/* MD — tablet portrait: single col, centred */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hero-inner { text-align: center; }
+  .hero-content { align-items: center; }
+  .hero-content p { max-width: 100%; }
+  .hero-ctas { justify-content: center; }
+  .hero-image-wrap { max-width: 28rem; margin-inline: auto; }
+  .hero-float-card {
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 14rem;
+  }
+}
+
+/* LG — tablet landscape: two-column kicks in (already at 1024px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-content h1 { font-size: var(--font-size-5xl); }
 }
