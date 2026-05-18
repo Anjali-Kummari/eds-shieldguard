@@ -1,12 +1,24 @@
 /*
  * ShieldGuard — Hero Block
- * Full-width two-column hero: text left, image right with floating badge
+ * Full-width: text left, image right (desktop ≥1024px)
+ * Single-column stacked (mobile / tablet <1024px)
+ *
+ * BREAKPOINTS (actual device widths):
+ *   XS   < 380px    iPhone SE (375px)
+ *   SM   380–479px  iPhone 14 Pro Max (430px) ← KEY RANGE
+ *   MD   480–639px  large Android phones
+ *   LG   640–1023px tablets
+ *   XL   ≥ 1024px   desktop
  */
 
+/* ============================================================
+   BASE — mobile-first, affects all sizes unless overridden
+   ============================================================ */
 .hero {
   padding-top: calc(var(--nav-height) + var(--space-16));
   padding-bottom: var(--space-20);
   padding-inline: var(--container-pad);
+  /* NO overflow:hidden here — that was clipping the text on mobile */
 }
 
 .hero-inner {
@@ -15,19 +27,23 @@
   display: grid;
   gap: var(--space-12);
   align-items: center;
+  /* single column by default; 2-col only on desktop */
 }
 
 @media (min-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── Text side ──────────────────────────────────────────── */
+/* ── Text column ─────────────────────────────────────────── */
 .hero-content {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  min-width: 0;       /* lets flexbox shrink below intrinsic width */
+  width: 100%;        /* explicit width so children respect it */
+  overflow: hidden;   /* clip overflow ON THE CONTENT BOX, not the whole hero */
 }
 
+/* Badge */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -42,7 +58,12 @@
   letter-spacing: var(--letter-spacing-wider);
   text-transform: uppercase;
   margin-bottom: var(--space-6);
+  /* constrain width so it never overflows the column */
+  max-width: 100%;
   width: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-badge .badge-star {
@@ -50,43 +71,61 @@
   height: 0.75rem;
   fill: var(--color-brand-primary);
   stroke: none;
+  flex-shrink: 0;
 }
 
+/* H1 — base size is 3rem (48px); overridden per breakpoint below */
 .hero-content h1 {
-  font-size: var(--font-size-5xl);
+  font-size: var(--font-size-5xl); /* 3rem / 48px — desktop fallback base */
   font-weight: var(--font-weight-extrabold);
   color: var(--color-neutral-900);
-  line-height: var(--line-height-tight);
+  line-height: 1.1;
   letter-spacing: var(--letter-spacing-tight);
   margin-bottom: var(--space-6);
+  /* These three together guarantee wrapping at ANY width */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  /* ensure the heading never exceeds its column */
+  max-width: 100%;
 }
 
 @media (min-width: 1024px) {
-  .hero-content h1 { font-size: var(--font-size-7xl); }
+  .hero-content h1 { font-size: var(--font-size-7xl); /* 4.5rem / 72px */ }
 }
 
+/* em inside h1 — keep inline, inherit wrapping from parent */
 .hero-content h1 em {
   font-style: normal;
   color: var(--color-brand-primary);
+  display: inline;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
+/* Body paragraph */
 .hero-content p {
   font-size: var(--font-size-lg);
   color: var(--color-neutral-600);
   line-height: var(--line-height-relaxed);
   margin-bottom: var(--space-8);
   max-width: 32rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
+/* CTA row */
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
 }
 
-/* ── Image side ─────────────────────────────────────────── */
+/* ── Image column ────────────────────────────────────────── */
 .hero-visual {
   position: relative;
+  min-width: 0;
+  width: 100%;
 }
 
 .hero-image-wrap {
@@ -94,6 +133,7 @@
   border-radius: var(--radius-3xl);
   overflow: hidden;
   box-shadow: var(--shadow-2xl);
+  width: 100%;
 }
 
 .hero-image-wrap img {
@@ -103,7 +143,7 @@
   display: block;
 }
 
-/* Floating card */
+/* Floating approval card */
 .hero-float-card {
   position: absolute;
   bottom: -1.5rem;
@@ -153,56 +193,135 @@
   line-height: var(--line-height-normal);
 }
 
-/* ── Responsive visual offset ───────────────────────────── */
-@media (max-width: 1023px) {
-  .hero-float-card {
-    bottom: -1rem;
-    left: var(--space-4);
-  }
-}
+/* ============================================================
+   RESPONSIVE OVERRIDES
+   ============================================================ */
 
-@media (max-width: 479px) {
+/* ── XS < 380px  (iPhone SE 375px) ──────────────────────── */
+@media (max-width: 379px) {
+  .hero {
+    padding-top: calc(var(--nav-height) + var(--space-6));
+    padding-bottom: var(--space-10);
+    padding-inline: var(--space-4);
+  }
+  .hero-content h1 {
+    font-size: 1.625rem;   /* 26px — tight but readable on 320–379px */
+    line-height: 1.2;
+    margin-bottom: var(--space-4);
+  }
+  .hero-content p {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-5);
+    max-width: 100%;
+  }
+  .hero-badge {
+    font-size: 0.6rem;
+    padding: 3px var(--space-2);
+  }
+  .hero-ctas {
+    flex-direction: column;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-image-wrap {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-2xl);
+  }
   .hero-float-card { display: none; }
 }
 
-/* ============================================================
-   HERO — RESPONSIVE ADDITIONS
-   ============================================================ */
-
-/* XS — single column, compact */
-@media (max-width: 479px) {
+/* ── SM 380–479px  (iPhone 14 Pro Max 430px is HERE) ─────── */
+@media (min-width: 380px) and (max-width: 479px) {
   .hero {
     padding-top: calc(var(--nav-height) + var(--space-8));
     padding-bottom: var(--space-12);
     padding-inline: var(--space-4);
   }
   .hero-content h1 {
-    font-size: var(--font-size-3xl);
+    font-size: 1.875rem;   /* 30px — fits 380–479px without any overflow */
+    line-height: 1.15;
     margin-bottom: var(--space-4);
   }
   .hero-content p {
     font-size: var(--font-size-base);
     margin-bottom: var(--space-6);
+    max-width: 100%;
   }
-  .hero-badge { font-size: 0.65rem; }
-  .hero-image-wrap { aspect-ratio: 4 / 3; border-radius: var(--radius-2xl); }
+  .hero-badge {
+    font-size: 0.65rem;
+  }
+  .hero-ctas {
+    flex-direction: column;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-image-wrap {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-2xl);
+  }
   .hero-float-card { display: none; }
 }
 
-/* SM — slightly more breathing room */
-@media (min-width: 480px) and (max-width: 767px) {
-  .hero-content h1 { font-size: var(--font-size-4xl); }
-  .hero-content p  { font-size: var(--font-size-base); }
+/* ── MD 480–639px  (large Android phones) ───────────────── */
+@media (min-width: 480px) and (max-width: 639px) {
+  .hero {
+    padding-top: calc(var(--nav-height) + var(--space-10));
+    padding-bottom: var(--space-14);
+    padding-inline: var(--space-5);
+  }
+  .hero-content h1 {
+    font-size: var(--font-size-4xl);   /* 36px */
+    line-height: 1.15;
+    margin-bottom: var(--space-5);
+  }
+  .hero-content p {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-6);
+    max-width: 100%;
+  }
+  .hero-ctas {
+    flex-direction: column;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-image-wrap {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-2xl);
+  }
   .hero-float-card { display: none; }
 }
 
-/* MD — tablet portrait: single col, centred */
+/* ── LG 640–1023px  (tablet portrait & landscape) ────────── */
 @media (min-width: 640px) and (max-width: 1023px) {
-  .hero-inner { text-align: center; }
-  .hero-content { align-items: center; }
-  .hero-content p { max-width: 100%; }
-  .hero-ctas { justify-content: center; }
-  .hero-image-wrap { max-width: 28rem; margin-inline: auto; }
+  .hero {
+    padding-top: calc(var(--nav-height) + var(--space-12));
+    padding-bottom: var(--space-16);
+    padding-inline: var(--space-8);
+  }
+  .hero-inner {
+    text-align: center;
+  }
+  .hero-content {
+    align-items: center;
+    overflow: visible; /* centred layout — no clipping needed */
+  }
+  .hero-content p {
+    max-width: 36rem;
+  }
+  .hero-ctas {
+    justify-content: center;
+    flex-direction: row;
+  }
+  .hero-image-wrap {
+    max-width: 28rem;
+    margin-inline: auto;
+  }
   .hero-float-card {
     bottom: -0.75rem;
     left: 50%;
@@ -211,7 +330,14 @@
   }
 }
 
-/* LG — tablet landscape: two-column kicks in (already at 1024px) */
+/* tablet portrait 640–767px */
+@media (min-width: 640px) and (max-width: 767px) {
+  .hero-content h1 { font-size: var(--font-size-4xl); }
+  .hero-float-card { display: none; }
+}
+
+/* tablet landscape 768–1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero-content h1 { font-size: var(--font-size-5xl); }
+  .hero-float-card { display: block; }
 }
