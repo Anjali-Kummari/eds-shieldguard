@@ -94,29 +94,9 @@ header .nav-desktop a {
   padding-bottom: 2px;
 }
 
-/* Underline indicator on hover / active */
-header .nav-desktop a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: var(--color-brand-primary);
-  border-radius: var(--radius-full);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform var(--transition-base);
-}
-
 header .nav-desktop a:hover,
 header .nav-desktop a[aria-current='page'] {
   color: var(--color-brand-primary);
-}
-
-header .nav-desktop a:hover::after,
-header .nav-desktop a[aria-current='page']::after {
-  transform: scaleX(1);
 }
 
 /* "Get a Quote" pill CTA — desktop */
