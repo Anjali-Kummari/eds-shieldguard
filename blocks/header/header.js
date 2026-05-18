@@ -16,8 +16,7 @@ const NAV_LINKS = [
   { href: '/products',  label: 'Products' },
   { href: '/resources', label: 'Resources' },
   { href: '/claims',    label: 'Claims' },
-  { href: '/about',     label: 'About Us' },
-  { href: '/contact',   label: 'Contact' },
+  
 ];
 
 function isCurrentPage(href) {
