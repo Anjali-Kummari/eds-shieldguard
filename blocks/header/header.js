@@ -1,121 +1,200 @@
 /**
  * ShieldGuard — Header Block
- * Custom responsive navigation with logo
+ * Fully responsive: hamburger on mobile/tablet (<1024px),
+ * full nav on desktop (>=1024px).
+ *
+ * Mobile menu:
+ *  - slides down from the header bar
+ *  - mirrors every link from the desktop nav (no separate hardcoded list)
+ *  - has a dark overlay behind it
+ *  - closes on overlay click, ESC key, or any link click
+ *  - hamburger animates to X when open
  */
 
-async function buildNav(block) {
+const NAV_LINKS = [
+  { href: '/',          label: 'Home' },
+  { href: '/products',  label: 'Products' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/claims',    label: 'Claims' },
+  { href: '/about',     label: 'About Us' },
+  { href: '/contact',   label: 'Contact' },
+];
+
+function isCurrentPage(href) {
+  try {
+    const url = new URL(href, window.location.origin);
+    return url.pathname === window.location.pathname;
+  } catch {
+    return false;
+  }
+}
+
+export default async function decorate(block) {
+  /* 1. Try to load nav links from nav.plain.html */
+  let links = NAV_LINKS;
+  try {
+    const resp = await fetch('/nav.plain.html');
+    if (resp.ok) {
+      const html = await resp.text();
+      const doc  = new DOMParser().parseFromString(html, 'text/html');
+      const anchors = [...doc.querySelectorAll('a')];
+      if (anchors.length) {
+        links = anchors.map((a) => ({
+          href:  a.getAttribute('href') || a.href,
+          label: a.textContent.trim(),
+        }));
+      }
+    }
+  } catch (e) { /* fallback to NAV_LINKS */ }
+
+  /* 2. Header bar */
   const wrapper = document.createElement('div');
   wrapper.className = 'header-wrapper';
 
-  // ── Brand / Logo ─────────────────────────────────────────
+  // Logo
   const brand = document.createElement('a');
   brand.className = 'header-brand';
   brand.href = '/';
-  brand.setAttribute('aria-label', 'ShieldGuard Home');
-
-  // Inline SVG for logo
+  brand.setAttribute('aria-label', 'ShieldGuard — go to homepage');
   brand.innerHTML = `
-    <svg class="brand-icon" xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" class="brand-icon"
+      aria-hidden="true">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
     </svg>
-    <span class="brand-name">ShieldGuard</span>
-  `;
+    <span class="brand-name">ShieldGuard</span>`;
 
-  wrapper.append(brand);
+  // Desktop nav
+  const desktopNav = document.createElement('nav');
+  desktopNav.className = 'nav-desktop';
+  desktopNav.setAttribute('aria-label', 'Main navigation');
 
-  // ── Desktop Navigation ──────────────────────────────────
-  const nav = document.createElement('nav');
-  nav.className = 'header-nav';
-  nav.setAttribute('aria-label', 'Main navigation');
-
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/products', label: 'Products' },
-    { href: '/resources', label: 'Resources' },
-    { href: '/claims', label: 'Claims' },
-  ];
-
-  navLinks.forEach(({ href, label }) => {
-    const link = document.createElement('a');
-    link.href = href;
-    link.textContent = label;
-    if (window.location.pathname === href) link.setAttribute('aria-current', 'page');
-    nav.append(link);
+  links.forEach(({ href, label }) => {
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = label;
+    if (isCurrentPage(href)) a.setAttribute('aria-current', 'page');
+    desktopNav.append(a);
   });
 
-  // CTA button
-  const cta = document.createElement('a');
-  cta.href = '/#quote';
-  cta.className = 'nav-cta';
-  cta.textContent = 'Get a Quote';
-  nav.append(cta);
+  const desktopCta = document.createElement('a');
+  desktopCta.href = '/#quote';
+  desktopCta.className = 'nav-cta';
+  desktopCta.textContent = 'Get a Quote';
+  desktopNav.append(desktopCta);
 
-  wrapper.append(nav);
-
-  // ── Mobile Toggle ───────────────────────────────────────
+  // Hamburger button
   const toggle = document.createElement('button');
   toggle.className = 'nav-toggle';
-  toggle.setAttribute('aria-label', 'Toggle mobile menu');
+  toggle.setAttribute('aria-label', 'Open navigation menu');
   toggle.setAttribute('aria-expanded', 'false');
-
+  toggle.setAttribute('aria-controls', 'mobile-nav');
   toggle.innerHTML = `
-    <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-         stroke-linejoin="round">
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <line x1="3" y1="12" x2="21" y2="12"/>
-      <line x1="3" y1="18" x2="21" y2="18"/>
-    </svg>
-    <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-         stroke-linejoin="round" style="display:none;">
-      <line x1="18" y1="6" x2="6" y2="18"/>
-      <line x1="6" y1="6" x2="18" y2="18"/>
-    </svg>
-  `;
-  wrapper.append(toggle);
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>`;
 
-  // Mobile nav
-  const mobileNav = document.createElement('div');
-  mobileNav.className = 'nav-mobile';
-  mobileNav.setAttribute('aria-hidden', 'true');
+  wrapper.append(brand, desktopNav, toggle);
 
-  navLinks.forEach(({ href, label }) => {
-    const link = document.createElement('a');
-    link.href = href;
-    link.textContent = label;
-    mobileNav.append(link);
+  /* 3. Mobile drawer */
+  const drawer = document.createElement('div');
+  drawer.className = 'nav-mobile';
+  drawer.id = 'mobile-nav';
+  drawer.setAttribute('aria-hidden', 'true');
+  drawer.setAttribute('role', 'dialog');
+  drawer.setAttribute('aria-label', 'Navigation menu');
+
+  const drawerList = document.createElement('ul');
+  drawerList.className = 'nav-mobile-list';
+  drawerList.setAttribute('role', 'list');
+
+  links.forEach(({ href, label }) => {
+    const li = document.createElement('li');
+    const a  = document.createElement('a');
+    a.href = href;
+    a.className = 'nav-mobile-link';
+    a.textContent = label;
+    if (isCurrentPage(href)) {
+      a.setAttribute('aria-current', 'page');
+      a.classList.add('active');
+    }
+    li.append(a);
+    drawerList.append(li);
   });
 
-  const mobileCta = document.createElement('a');
-  mobileCta.href = '/#quote';
-  mobileCta.className = 'nav-mobile-cta';
-  mobileCta.textContent = 'Get a Quote';
-  mobileNav.append(mobileCta);
+  const drawerCta = document.createElement('a');
+  drawerCta.href = '/#quote';
+  drawerCta.className = 'nav-mobile-cta';
+  drawerCta.textContent = 'Get a Quote';
 
-  // Toggle logic
-  toggle.addEventListener('click', () => {
-    const open = mobileNav.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-    mobileNav.setAttribute('aria-hidden', String(!open));
-    toggle.querySelector('.icon-menu').style.display = open ? 'none' : '';
-    toggle.querySelector('.icon-close').style.display = open ? '' : 'none';
+  drawer.append(drawerList, drawerCta);
+
+  /* 4. Dark overlay */
+  const overlay = document.createElement('div');
+  overlay.className = 'nav-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+
+  /* 5. Open / close */
+  let isOpen = false;
+
+  function openMenu() {
+    isOpen = true;
+    drawer.classList.add('open');
+    overlay.classList.add('visible');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close navigation menu');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    drawer.querySelector('a').focus();
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    drawer.classList.remove('open');
+    overlay.classList.remove('visible');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', () => (isOpen ? closeMenu() : openMenu()));
+  overlay.addEventListener('click', closeMenu);
+  drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeMenu();
   });
 
-  // Scroll shadow
-  const header = block.closest('header');
-  window.addEventListener(
-    'scroll',
-    () => header.classList.toggle('scrolled', window.scrollY > 10),
-    { passive: true }
-  );
+  // Focus trap
+  drawer.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusable = [...drawer.querySelectorAll('a, button')];
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  });
 
-  block.replaceChildren(wrapper, mobileNav);
-}
+  /* 6. Scroll shadow */
+  const headerEl = block.closest('header');
+  const onScroll = () => headerEl.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-// Export decorate function
-export default async function decorate(block) {
-  await buildNav(block);
+  /* 7. Close on resize to desktop */
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+    if (e.matches && isOpen) closeMenu();
+  });
+
+  /* 8. Mount */
+  block.replaceChildren(wrapper, drawer);
+  document.body.append(overlay);
 }
