@@ -13,13 +13,16 @@
 
   align-items: center;
 
-  gap: 64px;
+  gap: clamp(2rem, 5vw, 5rem);
 
-  max-width: 1400px;
+  max-width: min(1400px, 100%);
 
   margin: 0 auto;
 
-  padding: 80px 24px 120px;
+  padding:
+    clamp(3rem, 8vw, 6rem)
+    clamp(1rem, 4vw, 3rem)
+    clamp(4rem, 10vw, 8rem);
 }
 
 /* =========================================================
@@ -27,6 +30,8 @@
 ========================================================= */
 
 .hero-content {
+  width: 100%;
+
   max-width: 620px;
 }
 
@@ -54,6 +59,8 @@
   letter-spacing: 0.5px;
 
   text-transform: uppercase;
+
+  max-width: 100%;
 }
 
 .badge-star {
@@ -61,31 +68,30 @@
   height: 16px;
 
   fill: currentColor;
+
+  flex-shrink: 0;
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(2.5rem, 8vw, 5.5rem);
 
   font-weight: 800;
 
   color: #08122e;
 
-  line-height: 1.1;
+  line-height: 1.05;
 
-  letter-spacing: -2px;
+  letter-spacing: clamp(-1px, -0.15vw, -3px);
 
-  margin: 0 0 24px;
+  margin: 0 0 clamp(1rem, 3vw, 2rem);
 
   word-break: break-word;
 
-  overflow-wrap: break-word;
-
-  hyphens: auto;
+  overflow-wrap: anywhere;
 
   max-width: 100%;
 }
 
-/* Green second line */
 .hero-content h1 em {
   display: block;
 
@@ -95,11 +101,11 @@
 }
 
 .hero-content p {
-  margin-bottom: 36px;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
 
   color: #4f5d75;
 
-  font-size: 22px;
+  font-size: clamp(1rem, 2vw, 1.375rem);
 
   line-height: 1.7;
 
@@ -115,7 +121,9 @@
 
   flex-wrap: wrap;
 
-  gap: 16px;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+
+  width: 100%;
 }
 
 .hero-ctas .btn {
@@ -131,7 +139,9 @@
 
   gap: 10px;
 
-  padding: 16px 28px;
+  padding:
+    clamp(0.9rem, 2vw, 1rem)
+    clamp(1.25rem, 3vw, 2rem);
 
   border-radius: 999px;
 
@@ -140,6 +150,8 @@
   font-weight: 700;
 
   transition: all 0.2s ease;
+
+  max-width: 100%;
 }
 
 .btn-primary {
@@ -170,14 +182,18 @@
 
 .hero-visual {
   position: relative;
+
+  width: 100%;
 }
 
 .hero-image-wrap {
   overflow: hidden;
 
-  border-radius: 36px;
+  border-radius: clamp(1rem, 3vw, 2.5rem);
 
   aspect-ratio: 4 / 3;
+
+  width: 100%;
 
   box-shadow: 0 30px 60px rgb(0 0 0 / 12%);
 }
@@ -203,13 +219,13 @@
 
   position: absolute;
 
-  bottom: 24px;
+  bottom: clamp(1rem, 3vw, 2rem);
 
-  left: 24px;
+  left: clamp(1rem, 3vw, 2rem);
 
-  max-width: 240px;
+  width: min(240px, 80%);
 
-  padding: 22px;
+  padding: clamp(1rem, 3vw, 1.5rem);
 
   border-radius: 24px;
 
@@ -242,6 +258,8 @@
   background: #e7f8ef;
 
   color: #00a86b;
+
+  flex-shrink: 0;
 }
 
 .card-icon-wrap svg {
@@ -271,7 +289,7 @@
 
 @media (min-width: 768px) {
   .hero-inner {
-    padding: 100px 40px 140px;
+    align-items: center;
   }
 
   .hero-content {
@@ -285,13 +303,9 @@
 
 @media (min-width: 1024px) {
   .hero-inner {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
 
-    gap: 80px;
-  }
-
-  .hero-content {
-    max-width: 620px;
+    align-items: center;
   }
 
   .hero-float-card {
@@ -304,20 +318,6 @@
 ========================================================= */
 
 @media (max-width: 767px) {
-  .hero-inner {
-    padding: 60px 20px 100px;
-
-    gap: 48px;
-  }
-
-  .hero-content h1 {
-    line-height: 1.15;
-  }
-
-  .hero-content p {
-    font-size: 18px;
-  }
-
   .hero-ctas {
     flex-direction: column;
   }
@@ -327,6 +327,6 @@
   }
 
   .hero-image-wrap {
-    border-radius: 24px;
+    aspect-ratio: 1 / 1;
   }
 }
