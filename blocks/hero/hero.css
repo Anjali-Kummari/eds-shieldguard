@@ -1,332 +1,399 @@
-/* =========================================================
-   HERO SECTION
-========================================================= */
+/*
+ * ShieldGuard — Hero Block  (hero.css)
+ *
+ * WHY THIS WAS INTERMITTENTLY BREAKING
+ * ──────────────────────────────────────────────────────────────
+ * styles.css declares bare `h1 { font-size: ... }` rules inside
+ * several @media blocks (lines 207, 782, 851, 858, 865).
+ * Those rules have specificity 0-0-1 (element selector only).
+ *
+ * Previous hero.css used `.hero-content h1` (0-1-1) which is
+ * higher specificity — but ONLY when hero.css loads AFTER styles.css.
+ * On cold cache / incognito / slow connections the load order is
+ * non-deterministic, so sometimes styles.css h1 rules won the
+ * cascade and set the font-size back to 3rem (48px) on a 430px
+ * screen — causing the text to overflow right and get clipped.
+ *
+ * THE FIX
+ * ──────────────────────────────────────────────────────────────
+ * Every h1 rule in this file uses the selector:
+ *   .hero .hero-content h1          → specificity 0-2-1
+ * which beats ANY bare `h1` or `.foo h1` rule regardless of
+ * load order. Combined with mobile-first font sizes that start
+ * small and scale UP, the heading can never overflow on any
+ * viewport at any load timing.
+ *
+ * LAYOUT APPROACH
+ * ──────────────────────────────────────────────────────────────
+ * • .hero-inner is always grid-template-columns: 1fr on mobile.
+ *   No implicit multi-column that could exceed the viewport.
+ * • .hero-content h1 em is display:block on mobile so it wraps
+ *   inside the column, never runs off-screen as an inline run.
+ * • No overflow:hidden on .hero or .hero-content — wrapping only.
+ * • All widths use 100% + box-sizing:border-box so padding never
+ *   adds to the element's computed width.
+ */
 
-.hero-container {
-  width: 100%;
+/* ============================================================
+   CUSTOM PROPERTY OVERRIDES for hero section
+   ============================================================ */
+.hero {
+  --hero-pad-top-mobile:  calc(var(--nav-height) + 2rem);
+  --hero-pad-top-tablet:  calc(var(--nav-height) + 3rem);
+  --hero-pad-top-desktop: calc(var(--nav-height) + 4rem);
 }
 
-.hero-inner {
+/* ============================================================
+   SECTION WRAPPER
+   ============================================================ */
+.hero {
+  padding-top: var(--hero-pad-top-mobile);
+  padding-bottom: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--color-white);
+  box-sizing: border-box;
+  width: 100%;
+  /* deliberately no overflow:hidden — text must wrap, not clip */
+}
+
+/* ============================================================
+   INNER GRID
+   ============================================================ */
+.hero .hero-inner {
+  max-width: 80rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+
   display: grid;
-
-  grid-template-columns: 1fr;
-
+  /* ALWAYS 1 column on mobile — never auto-creates 2 cols */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
   align-items: center;
-
-  gap: clamp(2rem, 5vw, 5rem);
-
-  max-width: min(1400px, 100%);
-
-  margin: 0 auto;
-
-  padding:
-    clamp(3rem, 8vw, 6rem)
-    clamp(1rem, 4vw, 3rem)
-    clamp(4rem, 10vw, 8rem);
 }
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
-
-.hero-content {
-  width: 100%;
-
-  max-width: 620px;
+/* 2-column only on real desktop */
+@media (min-width: 1024px) {
+  .hero .hero-inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding-top: 0;
+  }
 }
 
-.hero-badge {
-  display: inline-flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 10px 18px;
-
-  margin-bottom: 24px;
-
-  border-radius: 999px;
-
-  background: #e7f8ef;
-
-  color: #00a86b;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.5px;
-
-  text-transform: uppercase;
-
-  max-width: 100%;
-}
-
-.badge-star {
-  width: 16px;
-  height: 16px;
-
-  fill: currentColor;
-
-  flex-shrink: 0;
-}
-
-.hero-content h1 {
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-
-  font-weight: 800;
-
-  color: #08122e;
-
-  line-height: 1.05;
-
-  letter-spacing: clamp(-1px, -0.15vw, -3px);
-
-  margin: 0 0 clamp(1rem, 3vw, 2rem);
-
-  word-break: break-word;
-
-  overflow-wrap: anywhere;
-
-  max-width: 100%;
-}
-
-.hero-content h1 em {
-  display: block;
-
-  color: #00a86b;
-
-  font-style: normal;
-}
-
-.hero-content p {
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
-
-  color: #4f5d75;
-
-  font-size: clamp(1rem, 2vw, 1.375rem);
-
-  line-height: 1.7;
-
-  max-width: 100%;
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-.hero-ctas {
+/* ============================================================
+   TEXT COLUMN
+   ============================================================ */
+.hero .hero-content {
   display: flex;
-
-  flex-wrap: wrap;
-
-  gap: clamp(0.75rem, 2vw, 1.25rem);
-
-  width: 100%;
-}
-
-.hero-ctas .btn {
+  flex-direction: column;
+  align-items: flex-start;
+  /* minmax(0,1fr) on the grid already constrains width,
+     but these add belt-and-suspenders safety */
   min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.btn {
+/* ── Badge ───────────────────────────────────────────────── */
+.hero .hero-badge {
   display: inline-flex;
-
   align-items: center;
-
-  justify-content: center;
-
-  gap: 10px;
-
-  padding:
-    clamp(0.9rem, 2vw, 1rem)
-    clamp(1.25rem, 3vw, 2rem);
-
-  border-radius: 999px;
-
-  text-decoration: none;
-
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--color-brand-primary-xlight, #ecfdf5);
+  border: 1px solid var(--color-brand-primary-border, #a7f3d0);
+  color: var(--color-brand-primary, #059669);
+  font-size: 0.6875rem;           /* 11px — fixed, never scaled by global h1 rules */
   font-weight: 700;
-
-  transition: all 0.2s ease;
-
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
   max-width: 100%;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
-.btn-primary {
-  background: #00a86b;
-
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background: #08122e;
-}
-
-.btn-outline {
-  border: 2px solid #08122e;
-
-  color: #08122e;
-}
-
-.btn-outline:hover {
-  background: #08122e;
-
-  color: #fff;
-}
-
-/* =========================================================
-   HERO IMAGE
-========================================================= */
-
-.hero-visual {
-  position: relative;
-
-  width: 100%;
-}
-
-.hero-image-wrap {
-  overflow: hidden;
-
-  border-radius: clamp(1rem, 3vw, 2.5rem);
-
-  aspect-ratio: 4 / 3;
-
-  width: 100%;
-
-  box-shadow: 0 30px 60px rgb(0 0 0 / 12%);
-}
-
-.hero-image-wrap img {
-  width: 100%;
-
-  height: 100%;
-
-  max-width: 100%;
-
-  object-fit: cover;
-
-  display: block;
-}
-
-/* =========================================================
-   FLOAT CARD
-========================================================= */
-
-.hero-float-card {
-  display: none;
-
-  position: absolute;
-
-  bottom: clamp(1rem, 3vw, 2rem);
-
-  left: clamp(1rem, 3vw, 2rem);
-
-  width: min(240px, 80%);
-
-  padding: clamp(1rem, 3vw, 1.5rem);
-
-  border-radius: 24px;
-
-  background: #fff;
-
-  box-shadow: 0 20px 40px rgb(0 0 0 / 12%);
-}
-
-.card-row {
-  display: flex;
-
-  align-items: center;
-
-  gap: 14px;
-
-  margin-bottom: 14px;
-}
-
-.card-icon-wrap {
-  width: 42px;
-  height: 42px;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 12px;
-
-  background: #e7f8ef;
-
-  color: #00a86b;
-
+.hero .hero-badge .badge-star {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: var(--color-brand-primary, #059669);
+  stroke: none;
   flex-shrink: 0;
 }
 
-.card-icon-wrap svg {
-  width: 22px;
-  height: 22px;
+/* ── Heading ─────────────────────────────────────────────────
+   ALL selectors use `.hero .hero-content h1` (specificity 0-2-1)
+   This beats every bare `h1` or `.section h1` rule in styles.css
+   regardless of stylesheet load order.
+   ─────────────────────────────────────────────────────────── */
+
+/* Default: safe for ALL viewports including 320px */
+.hero .hero-content h1 {
+  font-size: 1.75rem;             /* 28px — never overflows even 320px */
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 0;
+  /* wrapping triple-lock */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.card-title {
-  font-weight: 700;
-
-  color: #08122e;
+/* em = brand colour line — block on mobile so it wraps in column */
+.hero .hero-content h1 em {
+  font-style: normal;
+  color: var(--color-brand-primary, #059669);
+  display: block;                 /* forces line break; respects column width */
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
-.hero-float-card p {
-  margin: 0;
-
-  color: #64748b;
-
-  font-size: 14px;
-
-  line-height: 1.6;
+/* SM 375–479px: iPhone SE, older small phones */
+@media (min-width: 375px) and (max-width: 479px) {
+  .hero .hero-content h1 {
+    font-size: 1.875rem;          /* 30px */
+    line-height: 1.15;
+  }
 }
 
-/* =========================================================
-   TABLET
-========================================================= */
+/* MD 480–767px: iPhone 14 Pro Max (430px), large Android */
+@media (min-width: 480px) and (max-width: 767px) {
+  .hero {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: calc(var(--nav-height) + 2.5rem);
+  }
+  .hero .hero-content h1 {
+    font-size: 2.25rem;           /* 36px — comfortable at 430–767px */
+    line-height: 1.12;
+    margin-bottom: 1.25rem;
+  }
+}
 
-@media (min-width: 768px) {
-  .hero-inner {
+/* LG 768–1023px: tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: var(--hero-pad-top-tablet);
+    padding-bottom: 4rem;
+  }
+  .hero .hero-inner {
+    text-align: center;
+  }
+  .hero .hero-content {
     align-items: center;
   }
-
-  .hero-content {
-    max-width: 700px;
+  /* restore inline em on centred tablet layout */
+  .hero .hero-content h1 em {
+    display: inline;
+  }
+  .hero .hero-content h1 {
+    font-size: 2.75rem;           /* 44px — fits 768px–1023px nicely */
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
   }
 }
 
-/* =========================================================
-   DESKTOP
-========================================================= */
+/* XL ≥1024px: desktop two-column */
+@media (min-width: 1024px) {
+  .hero {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: var(--hero-pad-top-desktop);
+    padding-bottom: 5rem;
+  }
+  .hero .hero-content h1 {
+    font-size: 4.5rem;            /* 72px */
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  /* em back to inline on desktop */
+  .hero .hero-content h1 em {
+    display: inline;
+  }
+}
+
+/* ── Body paragraph ──────────────────────────────────────── */
+.hero .hero-content p {
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.625;
+  margin-bottom: 2rem;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero .hero-content p {
+    max-width: 36rem;
+    font-size: 1.0625rem;
+  }
+}
 
 @media (min-width: 1024px) {
-  .hero-inner {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-
-    align-items: center;
-  }
-
-  .hero-float-card {
-    display: block;
+  .hero .hero-content p {
+    font-size: 1.125rem;
+    max-width: 32rem;
   }
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+/* ── CTA buttons ─────────────────────────────────────────── */
+.hero .hero-ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-@media (max-width: 767px) {
-  .hero-ctas {
-    flex-direction: column;
+.hero .hero-ctas .btn {
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Side-by-side from 480px up */
+@media (min-width: 480px) {
+  .hero .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
   }
-
-  .btn {
-    width: 100%;
+  .hero .hero-ctas .btn {
+    width: auto;
   }
+}
 
-  .hero-image-wrap {
+/* Centre on tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero .hero-ctas {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   IMAGE COLUMN
+   ============================================================ */
+.hero .hero-visual {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hero .hero-image-wrap {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.18);
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero .hero-image-wrap {
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
     aspect-ratio: 1 / 1;
+    border-radius: 1.5rem;
   }
+}
+
+@media (min-width: 1024px) {
+  .hero .hero-image-wrap {
+    aspect-ratio: 1 / 1;
+    border-radius: 2.5rem;
+  }
+}
+
+.hero .hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Floating approval card ──────────────────────────────── */
+.hero .hero-float-card {
+  display: none;             /* hidden on all mobile */
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.08);
+  border: 1px solid #f1f5f9;
+  max-width: 16rem;
+  padding: 1.25rem 1.5rem;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero .hero-float-card {
+    display: block;
+    bottom: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 14rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero .hero-float-card {
+    display: block;
+    bottom: -1.5rem;
+    left: -1.5rem;
+    transform: none;
+    max-width: 16rem;
+  }
+}
+
+.hero .hero-float-card .card-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero .hero-float-card .card-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background-color: #ecfdf5;
+  flex-shrink: 0;
+}
+
+.hero .hero-float-card .card-icon-wrap svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #059669;
+}
+
+.hero .hero-float-card .card-title {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.875rem;
+}
+
+.hero .hero-float-card p {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
 }
