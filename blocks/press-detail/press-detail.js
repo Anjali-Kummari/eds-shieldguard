@@ -155,31 +155,59 @@ export default function decorate(block) {
           ${data['section 1 body'] || ''}
         </p>
 
-        <ul class="press-bullets">
+        ${
+  data['bullet 1'] ||
+  data['bullet 2'] ||
+  data['bullet 3']
 
-  <li>
-    <strong>
-      ${(data['bullet 1'] || '').split(':')[0]}:
-    </strong>
-    ${(data['bullet 1'] || '').split(':').slice(1).join(':')}
-  </li>
+    ? `
 
-  <li>
-    <strong>
-      ${(data['bullet 2'] || '').split(':')[0]}:
-    </strong>
-    ${(data['bullet 2'] || '').split(':').slice(1).join(':')}
-  </li>
+<ul class="press-bullets">
 
-  <li>
-    <strong>
-      ${(data['bullet 3'] || '').split(':')[0]}:
-    </strong>
-    ${(data['bullet 3'] || '').split(':').slice(1).join(':')}
-  </li>
+  ${
+    data['bullet 1']
+      ? `
+    <li>
+      <strong>
+        ${data['bullet 1'].split(':')[0]}:
+      </strong>
+      ${data['bullet 1'].split(':').slice(1).join(':')}
+    </li>
+  `
+      : ''
+  }
+
+  ${
+    data['bullet 2']
+      ? `
+    <li>
+      <strong>
+        ${data['bullet 2'].split(':')[0]}:
+      </strong>
+      ${data['bullet 2'].split(':').slice(1).join(':')}
+    </li>
+  `
+      : ''
+  }
+
+  ${
+    data['bullet 3']
+      ? `
+    <li>
+      <strong>
+        ${data['bullet 3'].split(':')[0]}:
+      </strong>
+      ${data['bullet 3'].split(':').slice(1).join(':')}
+    </li>
+  `
+      : ''
+  }
 
 </ul>
 
+`
+    : ''
+}
         ${
           data.quote
             ? `
