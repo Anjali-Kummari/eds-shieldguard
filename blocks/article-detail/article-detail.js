@@ -38,6 +38,30 @@ export default function decorate(block) {
   block.innerHTML = `
     <div class="article-detail-wrapper">
 
+      <a href="/resources" class="back-link">
+        ← Back to Resources
+      </a>
+
+      <div class="article-top-meta">
+
+        <span class="article-category">
+          ${data.category?.textContent || 'HOME'}
+        </span>
+
+        <span class="article-date">
+          ${data.date?.textContent || 'March 15, 2024'}
+        </span>
+
+        <span class="article-read-time">
+          ${data['read time']?.textContent || '5 min read'}
+        </span>
+
+      </div>
+
+      <h1 class="article-main-title">
+        ${data.title?.textContent || ''}
+      </h1>
+
       <div class="article-author">
 
         <div class="author-left">
@@ -47,6 +71,7 @@ export default function decorate(block) {
           </div>
 
           <div class="author-meta">
+
             <strong>
               ${data.author?.textContent || ''}
             </strong>
@@ -54,29 +79,46 @@ export default function decorate(block) {
             <span>
               ${data.role?.textContent || ''}
             </span>
+
           </div>
 
         </div>
 
         <button class="share-btn" aria-label="Share article">
-          ↗
+
+          <svg xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+
+          </svg>
+
         </button>
 
       </div>
 
       <div class="article-image">
+
         <img
           src="${image}"
           alt="${data.title?.textContent || ''}"
           loading="eager"
         >
+
       </div>
 
       <div class="article-content">
-
-        <h1>
-          ${data.title?.textContent || ''}
-        </h1>
 
         <p class="article-excerpt">
           ${data.excerpt?.textContent || ''}
