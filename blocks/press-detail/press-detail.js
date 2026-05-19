@@ -31,7 +31,26 @@ export default function decorate(block) {
         </span>
 
         <span class="press-date">
+
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="16"
+               height="16"
+               viewBox="0 0 24 24"
+               fill="none"
+               stroke="currentColor"
+               stroke-width="2"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+
+          </svg>
+
           ${data.date || ''}
+
         </span>
 
         <span class="press-category">
@@ -53,8 +72,15 @@ export default function decorate(block) {
           </div>
 
           <div class="author-info">
-            <strong>ShieldGuard Media Relations</strong>
-            <p>press@shieldguard.com</p>
+
+            <strong>
+              ShieldGuard Media Relations
+            </strong>
+
+            <p>
+              press@shieldguard.com
+            </p>
+
           </div>
 
         </div>
@@ -64,8 +90,8 @@ export default function decorate(block) {
           <button aria-label="Share article">
 
             <svg xmlns="http://www.w3.org/2000/svg"
-                 width="24"
-                 height="24"
+                 width="18"
+                 height="18"
                  viewBox="0 0 24 24"
                  fill="none"
                  stroke="currentColor"
@@ -82,13 +108,15 @@ export default function decorate(block) {
 
             </svg>
 
+            <span>Share</span>
+
           </button>
 
           <button aria-label="Print article">
 
             <svg xmlns="http://www.w3.org/2000/svg"
-                 width="24"
-                 height="24"
+                 width="18"
+                 height="18"
                  viewBox="0 0 24 24"
                  fill="none"
                  stroke="currentColor"
@@ -102,57 +130,99 @@ export default function decorate(block) {
 
             </svg>
 
+            <span>Print</span>
+
           </button>
 
         </div>
 
       </div>
 
-      <div class="press-content">
+      <div class="press-article">
 
-<pre>
-# ${data.title || ''}
+        <h2>
+          ${data.title || ''}
+        </h2>
 
-New York, NY — ${data.date || ''} — ShieldGuard P&C Insurance,
-a leading provider of digital-first property and casualty insurance,
-announced continued innovation and growth across its insurance platform.
+        <p>
+          <strong>
+            NEW YORK, NY — ${data.date || ''}
+          </strong>
+          — ${data.body || ''}
+        </p>
 
-The award recognizes ShieldGuard's commitment to leveraging
-artificial intelligence and machine learning to simplify claims,
-improve customer satisfaction, and reduce processing times.
+        <h3>
+          ${data['section 1 title'] || ''}
+        </h3>
 
-## Revolutionizing the Claims Experience
+        <p>
+          ${data['section 1 body'] || ''}
+        </p>
 
-ShieldGuard's InstantClaim™ platform now allows policyholders
-to submit and track claims in real-time.
+        <blockquote>
+          ${data.quote || ''}
+        </blockquote>
 
-"Our mission has always been to modernize insurance,"
-said Jane Doe, CEO of ShieldGuard.
+        <h3>
+          ${data['section 2 title'] || ''}
+        </h3>
 
-## About ShieldGuard
-
-ShieldGuard is a technology-driven P&C insurance provider
-headquartered in New York.
-</pre>
+        <p>
+          ${data['section 2 body'] || ''}
+        </p>
 
       </div>
 
       <div class="media-contact-box">
 
-        <h3>Media Contact</h3>
+        <h3>
+          Public Relations Contact
+        </h3>
 
         <div class="media-grid">
 
           <div>
-            <strong>Corporate Communications</strong>
-            <p>ShieldGuard P&C Insurance</p>
-            <p>Email: press@shieldguard.com</p>
+
+            <span class="media-label">
+              CORPORATE COMMUNICATIONS
+            </span>
+
+            <strong>
+              Sarah Jenkins
+            </strong>
+
+            <p>
+              Director of Communications
+            </p>
+
+            <a href="mailto:jenkins@shieldguard.com">
+              jenkins@shieldguard.com
+            </a>
+
           </div>
 
           <div>
-            <strong>Investor Relations</strong>
-            <p>Email: ir@shieldguard.com</p>
-            <p>Phone: (800) 555-0199</p>
+
+            <span class="media-label">
+              INVESTOR RELATIONS
+            </span>
+
+            <strong>
+              Marcus Thorne
+            </strong>
+
+            <p>
+              Head of Investor Relations
+            </p>
+
+            <a href="mailto:ir@shieldguard.com">
+              ir@shieldguard.com
+            </a>
+
+            <p>
+              +1 (800) 555-0199
+            </p>
+
           </div>
 
         </div>
@@ -161,17 +231,29 @@ headquartered in New York.
 
       <div class="recent-announcements">
 
-        <h3>Recent Announcements</h3>
+        <div class="recent-header">
+
+          <h3>
+            Recent Announcements
+          </h3>
+
+          <a href="/press">
+            View All
+          </a>
+
+        </div>
 
         <div class="announcement-grid">
 
           <a href="/press/commercial-property-coverage"
              class="announcement-card">
 
-            <span>NEXT RELEASE</span>
+            <span>
+              NEXT RELEASE
+            </span>
 
             <h4>
-              ShieldGuard Expands Commercial Property Coverage
+              ShieldGuard Expands Commercial Property Coverage...
             </h4>
 
           </a>
@@ -179,10 +261,12 @@ headquartered in New York.
           <a href="/press/q4-2025-growth"
              class="announcement-card">
 
-            <span>PREVIOUS RELEASE</span>
+            <span>
+              PREVIOUS RELEASE
+            </span>
 
             <h4>
-              ShieldGuard Reports Record Growth in Q4 2025
+              ShieldGuard Reports Growth in Q4 2025
             </h4>
 
           </a>
@@ -194,7 +278,7 @@ headquartered in New York.
       <div class="press-bottom-cta">
 
         <a href="/press">
-          Back to Press Center
+          BACK TO NEWSROOM
         </a>
 
       </div>
