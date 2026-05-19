@@ -157,19 +157,28 @@ export default function decorate(block) {
 
         <ul class="press-bullets">
 
-          <li>
-            ${data['bullet 1'] || ''}
-          </li>
+  <li>
+    <strong>
+      ${(data['bullet 1'] || '').split(':')[0]}:
+    </strong>
+    ${(data['bullet 1'] || '').split(':').slice(1).join(':')}
+  </li>
 
-          <li>
-            ${data['bullet 2'] || ''}
-          </li>
+  <li>
+    <strong>
+      ${(data['bullet 2'] || '').split(':')[0]}:
+    </strong>
+    ${(data['bullet 2'] || '').split(':').slice(1).join(':')}
+  </li>
 
-          <li>
-            ${data['bullet 3'] || ''}
-          </li>
+  <li>
+    <strong>
+      ${(data['bullet 3'] || '').split(':')[0]}:
+    </strong>
+    ${(data['bullet 3'] || '').split(':').slice(1).join(':')}
+  </li>
 
-        </ul>
+</ul>
 
         ${
           data.quote
