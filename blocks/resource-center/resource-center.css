@@ -396,3 +396,69 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   RESOURCE SEARCH
+========================================================= */
+
+.resource-search {
+  max-width: 560px;
+
+  margin: 42px auto 0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 18px 24px;
+
+  border-radius: 20px;
+
+  border: 1px solid #dbe2ea;
+
+  background: #fff;
+
+  box-shadow: 0 4px 18px rgb(15 23 42 / 4%);
+}
+
+.resource-search svg {
+  color: #94a3b8;
+
+  flex-shrink: 0;
+}
+
+.resource-search input {
+  width: 100%;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #08122e;
+
+  font-size: 18px;
+}
+
+.resource-search input::placeholder {
+  color: #94a3b8;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .resource-search {
+    padding: 16px 18px;
+
+    border-radius: 18px;
+  }
+
+  .resource-search input {
+    font-size: 16px;
+  }
+}
