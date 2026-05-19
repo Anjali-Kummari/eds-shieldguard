@@ -36,12 +36,38 @@ function renderGrid(articles, block) {
     <div class="resource-center-inner">
 
       <div class="resource-header">
-        <h1>Resource Center</h1>
+        <h1>Knowledge Center</h1>
 
         <p>
-          Guides, tips, and expert advice to help you make smarter insurance decisions.
+          Expert advice, insurance guides, and tips to help you protect what matters most.
         </p>
-      </div>
+        
+  <div class="resource-search">
+
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+
+    <input
+      type="text"
+      placeholder="Search articles..."
+    />
+
+  </div>
+
+</div>
+      
 
       <div class="resource-grid">
 
