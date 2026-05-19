@@ -3,7 +3,7 @@
 ========================================================= */
 
 .press-detail-page {
-  max-width: 860px;
+  max-width: 980px;
 
   margin: 0 auto;
 
@@ -86,13 +86,15 @@
 
   color: #08122e;
 
-  font-size: clamp(48px, 6vw, 72px);
+  font-size: clamp(34px, 5vw, 58px);
 
-  line-height: 1.05;
+  line-height: 1.08;
 
   font-weight: 800;
 
-  letter-spacing: -2px;
+  letter-spacing: -1.5px;
+
+  max-width: 760px;
 }
 
 /* =========================================================
@@ -106,7 +108,7 @@
 
   justify-content: space-between;
 
-  padding: 26px 0;
+  padding: 18px 0;
 
   border-top: 1px solid #e5e7eb;
 
@@ -186,7 +188,7 @@
 
   cursor: pointer;
 
-  color: #94a3b8;
+  color: #cbd5e1;
 
   font-size: 14px;
 
@@ -210,11 +212,13 @@
 
   color: #08122e;
 
-  font-size: clamp(38px, 5vw, 58px);
+  font-size: clamp(30px, 4vw, 46px);
 
-  line-height: 1.08;
+  line-height: 1.1;
 
   font-weight: 800;
+
+  letter-spacing: -1px;
 }
 
 .press-article h3 {
@@ -232,7 +236,7 @@
 
   color: #475569;
 
-  font-size: 18px;
+  font-size: 19px;
 
   line-height: 1.9;
 }
@@ -254,13 +258,25 @@
 }
 
 /* =========================================================
+   DIVIDER
+========================================================= */
+
+.press-divider {
+  border: none;
+
+  border-top: 1px solid #e5e7eb;
+
+  margin: 70px 0;
+}
+
+/* =========================================================
    MEDIA CONTACT
 ========================================================= */
 
 .media-contact-box {
   background: linear-gradient(135deg, #07122f 0%, #08122e 100%);
 
-  padding: 42px;
+  padding: 52px;
 
   border-radius: 28px;
 
@@ -270,9 +286,11 @@
 }
 
 .media-contact-box h3 {
-  margin: 0 0 32px;
+  margin: 0 0 28px;
 
-  font-size: 32px;
+  color: #fff;
+
+  font-size: 30px;
 
   font-weight: 700;
 }
@@ -307,13 +325,20 @@
   font-size: 18px;
 }
 
-.media-grid p,
-.media-grid a {
-  display: block;
-
+.media-grid p {
   margin: 0 0 6px;
 
   color: rgb(255 255 255 / 80%);
+}
+
+.media-grid a {
+  display: inline-block;
+
+  margin-top: 6px;
+
+  color: #00d084;
+
+  font-weight: 600;
 
   text-decoration: none;
 }
@@ -376,7 +401,17 @@
   transform: translateY(-2px);
 }
 
-.announcement-card span {
+.announcement-top {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.announcement-top span {
   color: #00a86b;
 
   font-size: 11px;
@@ -386,8 +421,14 @@
   letter-spacing: 0.5px;
 }
 
+.announcement-top small {
+  color: #94a3b8;
+
+  font-size: 12px;
+}
+
 .announcement-card h4 {
-  margin-top: 16px;
+  margin: 0;
 
   color: #08122e;
 
