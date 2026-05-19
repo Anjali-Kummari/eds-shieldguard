@@ -92,7 +92,11 @@ export default function decorate(block) {
           <h2>Our Story</h2>
 
           <p>
-            ShieldGuard started in 1999 as a small regional agency.
+           ShieldGuard started in 1999 as a small regional agency with a focus on personalized service. We saw that the insurance industry was becoming increasingly impersonal and complex.
+
+Over the next two decades, we expanded nationwide, but we never lost our focus on the individual. Today, we are a leading P&C provider, known for our fast claims processing and human-centric approach to support.
+
+We continue to invest in technology that empowers our customers, making it easier than ever to manage risks and recover from the unexpected.
           </p>
         </div>
       </div>
