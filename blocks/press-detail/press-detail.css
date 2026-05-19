@@ -326,3 +326,8 @@
     font-size: 16px;
   }
 }
+.press-bullets strong {
+  color: #08122e;
+
+  font-weight: 700;
+}
