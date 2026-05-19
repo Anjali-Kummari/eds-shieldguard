@@ -42,7 +42,7 @@ export default function decorate(block) {
                stroke-linecap="round"
                stroke-linejoin="round">
 
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
             <line x1="8" y1="2" x2="8" y2="6"></line>
             <line x1="3" y1="10" x2="21" y2="10"></line>
@@ -51,10 +51,6 @@ export default function decorate(block) {
 
           ${data.date || ''}
 
-        </span>
-
-        <span class="press-category">
-          ${data.category || ''}
         </span>
 
       </div>
@@ -87,7 +83,7 @@ export default function decorate(block) {
 
         <div class="press-author-actions">
 
-          <button aria-label="Share article">
+          <button>
 
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="18"
@@ -112,7 +108,7 @@ export default function decorate(block) {
 
           </button>
 
-          <button aria-label="Print article">
+          <button>
 
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="18"
@@ -159,19 +155,55 @@ export default function decorate(block) {
           ${data['section 1 body'] || ''}
         </p>
 
-        <blockquote>
-          ${data.quote || ''}
-        </blockquote>
+        <ul class="press-bullets">
 
-        <h3>
-          ${data['section 2 title'] || ''}
-        </h3>
+          <li>
+            ${data['bullet 1'] || ''}
+          </li>
 
-        <p>
-          ${data['section 2 body'] || ''}
-        </p>
+          <li>
+            ${data['bullet 2'] || ''}
+          </li>
+
+          <li>
+            ${data['bullet 3'] || ''}
+          </li>
+
+        </ul>
+
+        ${
+          data.quote
+            ? `
+          <blockquote>
+            ${data.quote}
+          </blockquote>
+        `
+            : ''
+        }
+
+        ${
+          data['section 2 title']
+            ? `
+          <h3>
+            ${data['section 2 title']}
+          </h3>
+        `
+            : ''
+        }
+
+        ${
+          data['section 2 body']
+            ? `
+          <p>
+            ${data['section 2 body']}
+          </p>
+        `
+            : ''
+        }
 
       </div>
+
+      <hr class="press-divider">
 
       <div class="media-contact-box">
 
@@ -248,9 +280,17 @@ export default function decorate(block) {
           <a href="/press/commercial-property-coverage"
              class="announcement-card">
 
-            <span>
-              NEXT RELEASE
-            </span>
+            <div class="announcement-top">
+
+              <span>
+                NEXT RELEASE
+              </span>
+
+              <small>
+                Feb 15, 2026
+              </small>
+
+            </div>
 
             <h4>
               ShieldGuard Expands Commercial Property Coverage...
@@ -261,9 +301,17 @@ export default function decorate(block) {
           <a href="/press/q4-2025-growth"
              class="announcement-card">
 
-            <span>
-              PREVIOUS RELEASE
-            </span>
+            <div class="announcement-top">
+
+              <span>
+                PREVIOUS RELEASE
+              </span>
+
+              <small>
+                Jan 10, 2026
+              </small>
+
+            </div>
 
             <h4>
               ShieldGuard Reports Growth in Q4 2025
