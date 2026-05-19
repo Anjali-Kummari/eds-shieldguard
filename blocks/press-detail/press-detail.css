@@ -1,445 +1,280 @@
-/* =========================================================
-   PRESS DETAIL PAGE
-========================================================= */
-
 .press-detail-page {
   max-width: 980px;
-
   margin: 0 auto;
-
   padding: 48px 20px 100px;
 }
 
-/* =========================================================
-   BACK LINK
-========================================================= */
-
 .press-back-link {
   display: inline-flex;
-
   align-items: center;
-
   gap: 8px;
-
   margin-bottom: 32px;
-
   color: #00a86b;
-
   font-size: 14px;
-
   font-weight: 700;
-
   text-decoration: none;
 }
 
-/* =========================================================
-   META
-========================================================= */
-
 .press-meta {
   display: flex;
-
   align-items: center;
-
   gap: 18px;
-
   flex-wrap: wrap;
-
   margin-bottom: 32px;
 }
 
 .press-badge {
   background: #dff7ea;
-
   color: #00a86b;
-
   padding: 7px 14px;
-
   border-radius: 999px;
-
   font-size: 11px;
-
   font-weight: 700;
-
   letter-spacing: 0.5px;
 }
 
-.press-date,
-.press-category {
+.press-date {
   display: flex;
-
   align-items: center;
-
   gap: 6px;
-
   color: #94a3b8;
-
   font-size: 14px;
 }
 
-/* =========================================================
-   TITLE
-========================================================= */
-
 .press-title {
   margin: 0 0 42px;
-
   color: #08122e;
-
   font-size: clamp(34px, 5vw, 58px);
-
   line-height: 1.08;
-
   font-weight: 800;
-
   letter-spacing: -1.5px;
-
   max-width: 760px;
 }
 
-/* =========================================================
-   AUTHOR
-========================================================= */
-
 .press-author {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   padding: 18px 0;
-
   border-top: 1px solid #e5e7eb;
-
   border-bottom: 1px solid #e5e7eb;
-
   margin-bottom: 48px;
 }
 
 .press-author-left {
   display: flex;
-
   align-items: center;
-
   gap: 18px;
 }
 
 .author-avatar {
   width: 48px;
   height: 48px;
-
   border-radius: 50%;
-
   background: #00a86b;
-
   color: #fff;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   font-size: 18px;
-
   font-weight: 700;
 }
 
 .author-info strong {
   display: block;
-
   margin-bottom: 4px;
-
   color: #08122e;
-
   font-size: 16px;
 }
 
 .author-info p {
   margin: 0;
-
   color: #94a3b8;
-
   font-size: 14px;
 }
 
-/* =========================================================
-   ACTIONS
-========================================================= */
-
 .press-author-actions {
   display: flex;
-
   align-items: center;
-
   gap: 22px;
 }
 
 .press-author-actions button {
   display: flex;
-
   align-items: center;
-
   gap: 6px;
-
   background: none;
-
   border: none;
-
   cursor: pointer;
-
   color: #cbd5e1;
-
   font-size: 14px;
-
-  transition: all 0.2s ease;
 }
-
-.press-author-actions button:hover {
-  color: #08122e;
-}
-
-/* =========================================================
-   ARTICLE
-========================================================= */
 
 .press-article {
+  max-width: 760px;
   margin-bottom: 70px;
 }
 
 .press-article h2 {
   margin: 0 0 28px;
-
   color: #08122e;
-
   font-size: clamp(30px, 4vw, 46px);
-
   line-height: 1.1;
-
   font-weight: 800;
-
-  letter-spacing: -1px;
 }
 
 .press-article h3 {
   margin: 48px 0 18px;
-
   color: #08122e;
-
   font-size: 34px;
-
   font-weight: 700;
 }
 
 .press-article p {
   margin: 0 0 24px;
-
   color: #475569;
-
   font-size: 19px;
-
   line-height: 1.9;
+}
+
+.press-bullets {
+  margin: 24px 0 42px 24px;
+  padding: 0;
+}
+
+.press-bullets li {
+  margin-bottom: 18px;
+  color: #475569;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.press-bullets li::marker {
+  color: #08122e;
 }
 
 .press-article blockquote {
   margin: 40px 0;
-
   padding-left: 24px;
-
   border-left: 4px solid #00a86b;
-
   color: #08122e;
-
   font-size: 22px;
-
   font-weight: 600;
-
   line-height: 1.7;
 }
 
-/* =========================================================
-   DIVIDER
-========================================================= */
-
 .press-divider {
   border: none;
-
   border-top: 1px solid #e5e7eb;
-
   margin: 70px 0;
 }
 
-/* =========================================================
-   MEDIA CONTACT
-========================================================= */
-
 .media-contact-box {
   background: linear-gradient(135deg, #07122f 0%, #08122e 100%);
-
   padding: 52px;
-
   border-radius: 28px;
-
   margin-bottom: 70px;
-
   color: #fff;
 }
 
 .media-contact-box h3 {
   margin: 0 0 28px;
-
   color: #fff;
-
   font-size: 30px;
-
   font-weight: 700;
 }
 
 .media-grid {
   display: grid;
-
   grid-template-columns: repeat(2, 1fr);
-
   gap: 40px;
 }
 
 .media-label {
   display: block;
-
   margin-bottom: 14px;
-
   color: rgb(255 255 255 / 55%);
-
   font-size: 11px;
-
   font-weight: 700;
-
   letter-spacing: 1px;
 }
 
 .media-grid strong {
   display: block;
-
   margin-bottom: 8px;
-
   font-size: 18px;
 }
 
 .media-grid p {
   margin: 0 0 6px;
-
   color: rgb(255 255 255 / 80%);
 }
 
 .media-grid a {
   display: inline-block;
-
   margin-top: 6px;
-
   color: #00d084;
-
   font-weight: 600;
-
   text-decoration: none;
 }
 
-/* =========================================================
-   RECENT
-========================================================= */
-
 .recent-header {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   margin-bottom: 28px;
 }
 
 .recent-header h3 {
   margin: 0;
-
   color: #08122e;
-
   font-size: 32px;
 }
 
 .recent-header a {
   color: #00a86b;
-
   font-weight: 700;
-
   text-decoration: none;
 }
 
 .announcement-grid {
   display: grid;
-
   grid-template-columns: repeat(2, 1fr);
-
   gap: 24px;
-
   margin-bottom: 60px;
 }
 
 .announcement-card {
   border: 1px solid #e5e7eb;
-
   border-radius: 20px;
-
   padding: 24px;
-
   text-decoration: none;
-
-  transition: all 0.2s ease;
-}
-
-.announcement-card:hover {
-  border-color: #00a86b;
-
-  transform: translateY(-2px);
 }
 
 .announcement-top {
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   margin-bottom: 14px;
 }
 
 .announcement-top span {
   color: #00a86b;
-
   font-size: 11px;
-
   font-weight: 700;
-
-  letter-spacing: 0.5px;
 }
 
 .announcement-top small {
   color: #94a3b8;
-
   font-size: 12px;
 }
 
 .announcement-card h4 {
   margin: 0;
-
   color: #08122e;
-
   font-size: 18px;
-
   line-height: 1.5;
 }
-
-/* =========================================================
-   CTA
-========================================================= */
 
 .press-bottom-cta {
   text-align: center;
@@ -447,31 +282,16 @@
 
 .press-bottom-cta a {
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
-
   padding: 16px 34px;
-
   border-radius: 16px;
-
   background: #08122e;
-
   color: #fff;
-
   text-decoration: none;
-
   font-size: 13px;
-
   font-weight: 700;
-
-  letter-spacing: 0.5px;
 }
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media (max-width: 768px) {
   .press-title {
@@ -480,9 +300,7 @@
 
   .press-author {
     flex-direction: column;
-
     align-items: flex-start;
-
     gap: 24px;
   }
 
@@ -503,7 +321,8 @@
     font-size: 28px;
   }
 
-  .press-article p {
+  .press-article p,
+  .press-bullets li {
     font-size: 16px;
   }
 }
