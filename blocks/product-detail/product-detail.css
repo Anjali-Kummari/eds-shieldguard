@@ -190,11 +190,12 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  margin-left: -25px;
 }
 
 .product-image img {
-  width: 548px;
-  height: 793px;
+  width: 614px;
+  height: 894px;
 
   
 
