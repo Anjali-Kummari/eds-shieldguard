@@ -289,13 +289,29 @@ searchInput.addEventListener('input', (e) => {
       .trim()
       .toLowerCase();
 
-  const searchable =
-    [
-      ...document.querySelectorAll(
-        'h1, h2, h3, p'
-      ),
-    ];
-
+const searchable =
+  [
+    ...document.querySelectorAll(
+      `
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      span,
+      a,
+      button,
+      li,
+      .article-card,
+      .press-card,
+      .feature-card,
+      .stat-card,
+      .announcement-card
+      `
+    ),
+  ];
   let matches = [];
 
   searchable.forEach((item) => {
