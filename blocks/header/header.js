@@ -1,27 +1,18 @@
 /**
  * ShieldGuard — Header Block
- * Fully responsive: hamburger on mobile/tablet (<1024px),
- * full nav on desktop (>=1024px).
- *
- * Mobile menu:
- *  - slides down from the header bar
- *  - mirrors every link from the desktop nav (no separate hardcoded list)
- *  - has a dark overlay behind it
- *  - closes on overlay click, ESC key, or any link click
- *  - hamburger animates to X when open
  */
 
 const NAV_LINKS = [
-  { href: '/',          label: 'Home' },
-  { href: '/products',  label: 'Products' },
+  { href: '/', label: 'Home' },
+  { href: '/products', label: 'Products' },
   { href: '/resources', label: 'Resources' },
-  { href: '/claims',    label: 'Claims' },
-  
+  { href: '/claims', label: 'Claims' },
 ];
 
 function isCurrentPage(href) {
   try {
     const url = new URL(href, window.location.origin);
+
     return url.pathname === window.location.pathname;
   } catch {
     return false;
@@ -29,171 +20,223 @@ function isCurrentPage(href) {
 }
 
 export default async function decorate(block) {
-  /* 1. Try to load nav links from nav.plain.html */
+
   let links = NAV_LINKS;
+
   try {
     const resp = await fetch('/nav.plain.html');
+
     if (resp.ok) {
+
       const html = await resp.text();
-      const doc  = new DOMParser().parseFromString(html, 'text/html');
+
+      const doc = new DOMParser().parseFromString(
+        html,
+        'text/html'
+      );
+
       const anchors = [...doc.querySelectorAll('a')];
+
       if (anchors.length) {
+
         links = anchors.map((a) => ({
-          href:  a.getAttribute('href') || a.href,
+          href: a.getAttribute('href') || a.href,
           label: a.textContent.trim(),
         }));
+
       }
     }
-  } catch (e) { /* fallback to NAV_LINKS */ }
+  } catch (e) {}
 
-  /* 2. Header bar */
+  /* =========================================================
+     HEADER WRAPPER
+  ========================================================= */
+
   const wrapper = document.createElement('div');
+
   wrapper.className = 'header-wrapper';
 
-  // Logo
-  const brand = document.createElement('a');
-  brand.className = 'header-brand';
-  brand.href = '/';
-  brand.setAttribute('aria-label', 'ShieldGuard — go to homepage');
-  brand.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-      fill="none" stroke="currentColor" stroke-width="2"
-      stroke-linecap="round" stroke-linejoin="round" class="brand-icon"
-      aria-hidden="true">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>
-    <span class="brand-name">ShieldGuard</span>`;
+  /* =========================================================
+     BRAND
+  ========================================================= */
 
-  // Desktop nav
+  const brand = document.createElement('a');
+
+  brand.className = 'header-brand';
+
+  brand.href = '/';
+
+  brand.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="brand-icon">
+
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+
+    </svg>
+
+    <span class="brand-name">
+      ShieldGuard
+    </span>
+  `;
+
+  /* =========================================================
+     DESKTOP NAV
+  ========================================================= */
+
   const desktopNav = document.createElement('nav');
+
   desktopNav.className = 'nav-desktop';
-  desktopNav.setAttribute('aria-label', 'Main navigation');
 
   links.forEach(({ href, label }) => {
+
     const a = document.createElement('a');
+
     a.href = href;
+
     a.textContent = label;
-    if (isCurrentPage(href)) a.setAttribute('aria-current', 'page');
+
+    if (isCurrentPage(href)) {
+      a.setAttribute('aria-current', 'page');
+    }
+
     desktopNav.append(a);
+
   });
 
+  /* =========================================================
+     SEARCH BUTTON
+  ========================================================= */
+
+  const searchBtn = document.createElement('button');
+
+  searchBtn.className = 'nav-search-btn';
+
+  searchBtn.setAttribute(
+    'aria-label',
+    'Search site'
+  );
+
+  searchBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="20"
+         height="20"
+         viewBox="0 0 24 24"
+         fill="none"
+         stroke="currentColor"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round">
+
+      <circle cx="11" cy="11" r="8"></circle>
+
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+
+    </svg>
+  `;
+
+  desktopNav.append(searchBtn);
+
+  /* =========================================================
+     CTA
+  ========================================================= */
+
   const desktopCta = document.createElement('a');
+
   desktopCta.href = '/#quote';
+
   desktopCta.className = 'nav-cta';
+
   desktopCta.textContent = 'Get a Quote';
+
   desktopNav.append(desktopCta);
 
-  // Hamburger button
+  /* =========================================================
+     SEARCH BOX
+  ========================================================= */
+
+  const searchBox = document.createElement('div');
+
+  searchBox.className = 'header-search';
+
+  searchBox.innerHTML = `
+    <input
+      type="text"
+      id="site-search"
+      placeholder="Search pages..."
+    >
+  `;
+
+  /* =========================================================
+     MOBILE TOGGLE
+  ========================================================= */
+
   const toggle = document.createElement('button');
+
   toggle.className = 'nav-toggle';
-  toggle.setAttribute('aria-label', 'Open navigation menu');
-  toggle.setAttribute('aria-expanded', 'false');
-  toggle.setAttribute('aria-controls', 'mobile-nav');
+
   toggle.innerHTML = `
     <span class="hamburger-bar"></span>
     <span class="hamburger-bar"></span>
-    <span class="hamburger-bar"></span>`;
+    <span class="hamburger-bar"></span>
+  `;
 
-  wrapper.append(brand, desktopNav, toggle);
+  wrapper.append(
+    brand,
+    desktopNav,
+    searchBox,
+    toggle
+  );
 
-  /* 3. Mobile drawer */
-  const drawer = document.createElement('div');
-  drawer.className = 'nav-mobile';
-  drawer.id = 'mobile-nav';
-  drawer.setAttribute('aria-hidden', 'true');
-  drawer.setAttribute('role', 'dialog');
-  drawer.setAttribute('aria-label', 'Navigation menu');
+  /* =========================================================
+     SEARCH FUNCTIONALITY
+  ========================================================= */
 
-  const drawerList = document.createElement('ul');
-  drawerList.className = 'nav-mobile-list';
-  drawerList.setAttribute('role', 'list');
+  const searchInput =
+    searchBox.querySelector('#site-search');
 
-  links.forEach(({ href, label }) => {
-    const li = document.createElement('li');
-    const a  = document.createElement('a');
-    a.href = href;
-    a.className = 'nav-mobile-link';
-    a.textContent = label;
-    if (isCurrentPage(href)) {
-      a.setAttribute('aria-current', 'page');
-      a.classList.add('active');
-    }
-    li.append(a);
-    drawerList.append(li);
+  searchBtn.addEventListener('click', () => {
+
+    searchBox.classList.toggle('active');
+
+    searchInput.focus();
+
   });
 
-  const drawerCta = document.createElement('a');
-  drawerCta.href = '/#quote';
-  drawerCta.className = 'nav-mobile-cta';
-  drawerCta.textContent = 'Get a Quote';
+  searchInput.addEventListener('input', (e) => {
 
-  drawer.append(drawerList, drawerCta);
+    const value =
+      e.target.value.toLowerCase();
 
-  /* 4. Dark overlay */
-  const overlay = document.createElement('div');
-  overlay.className = 'nav-overlay';
-  overlay.setAttribute('aria-hidden', 'true');
+    const searchable =
+      document.querySelectorAll(
+        'h1, h2, h3, p, .article-card, .press-card'
+      );
 
-  /* 5. Open / close */
-  let isOpen = false;
+    searchable.forEach((item) => {
 
-  function openMenu() {
-    isOpen = true;
-    drawer.classList.add('open');
-    overlay.classList.add('visible');
-    toggle.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close navigation menu');
-    drawer.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    drawer.querySelector('a').focus();
-  }
+      const text =
+        item.textContent.toLowerCase();
 
-  function closeMenu() {
-    isOpen = false;
-    drawer.classList.remove('open');
-    overlay.classList.remove('visible');
-    toggle.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation menu');
-    drawer.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    toggle.focus();
-  }
+      if (text.includes(value)) {
 
-  toggle.addEventListener('click', () => (isOpen ? closeMenu() : openMenu()));
-  overlay.addEventListener('click', closeMenu);
-  drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+        item.style.outline =
+          '2px solid #00a86b';
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen) closeMenu();
+      } else {
+
+        item.style.outline = '';
+
+      }
+
+    });
+
   });
 
-  // Focus trap
-  drawer.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    const focusable = [...drawer.querySelectorAll('a, button')];
-    const first = focusable[0];
-    const last  = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault(); last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault(); first.focus();
-    }
-  });
-
-  /* 6. Scroll shadow */
-  const headerEl = block.closest('header');
-  const onScroll = () => headerEl.classList.toggle('scrolled', window.scrollY > 8);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* 7. Close on resize to desktop */
-  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
-    if (e.matches && isOpen) closeMenu();
-  });
-
-  /* 8. Mount */
-  block.replaceChildren(wrapper, drawer);
-  document.body.append(overlay);
+  block.replaceChildren(wrapper);
 }
