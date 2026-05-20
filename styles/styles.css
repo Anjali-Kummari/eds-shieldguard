@@ -245,7 +245,7 @@ ul, ol {
 li { margin-bottom: var(--space-2); }
 
 img {
-  max-width: 100%;
+  
   height: auto;
   display: block;
 }
