@@ -1,5 +1,369 @@
+/*
+ * ShieldGuard — Header Block
+ * ─────────────────────────────────────────────────────────────
+ * Breakpoints:
+ *   Mobile / Tablet  <  1024px  →  hamburger + slide-down drawer
+ *   Desktop         >= 1024px  →  full horizontal nav
+ */
+
 /* ============================================================
-   SEARCH BUTTON
+   1. FIXED HEADER BAR
+   ============================================================ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  background-color: rgb(255 255 255 / 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgb(0 0 0 / 0.06);
+  transition: box-shadow var(--transition-base);
+}
+
+header.scrolled {
+  box-shadow: 0 2px 16px rgb(0 0 0 / 0.08);
+}
+
+/* ============================================================
+   2. INNER WRAPPER  — logo | nav | hamburger
+   ============================================================ */
+header .header-wrapper {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  height: var(--nav-height);          /* 4rem desktop */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* ============================================================
+   3. BRAND / LOGO
+   ============================================================ */
+header .header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+header .header-brand .brand-icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-brand-primary);
+  flex-shrink: 0;
+}
+
+header .header-brand .brand-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+  letter-spacing: var(--letter-spacing-tight);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   4. DESKTOP NAV  (hidden below 1024px)
+   ============================================================ */
+header .nav-desktop {
+  display: none;            /* hidden on mobile/tablet */
+  align-items: center;
+  gap: var(--space-6);
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@media (min-width: 1024px) {
+  header .nav-desktop {
+    display: flex;
+  }
+}
+
+header .nav-desktop a {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-600);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+header .nav-desktop a:hover,
+header .nav-desktop a[aria-current='page'] {
+  color: var(--color-brand-primary);
+}
+
+/* "Get a Quote" pill CTA — desktop */
+header .nav-desktop .nav-cta {
+  background-color: var(--color-neutral-900);
+  color: var(--color-white) !important;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  margin-left: var(--space-2);
+}
+
+header .nav-desktop .nav-cta::after {
+  display: none;   /* no underline on pill CTA */
+}
+
+header .nav-desktop .nav-cta:hover {
+  background-color: var(--color-brand-primary);
+  color: var(--color-white) !important;
+  transform: translateY(-1px);
+}
+
+/* Tight gap on large tablet */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  header .nav-desktop { gap: var(--space-4); }
+  header .nav-desktop a { font-size: var(--font-size-xs); }
+  header .nav-desktop .nav-cta { padding: var(--space-2) var(--space-4); }
+}
+
+/* ============================================================
+   5. HAMBURGER BUTTON  (visible below 1024px)
+   ============================================================ */
+header .nav-toggle {
+  display: flex;           /* shown on mobile/tablet */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: var(--space-2);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+header .nav-toggle:hover {
+  background-color: var(--color-neutral-100);
+}
+
+/* The three bars */
+header .nav-toggle .hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-neutral-700);
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-base), opacity var(--transition-base), width var(--transition-base);
+  transform-origin: center;
+}
+
+/* Animate bars → × when open */
+header .nav-toggle.is-open .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+header .nav-toggle.is-open .hamburger-bar:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+header .nav-toggle.is-open .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Hide hamburger on desktop */
+@media (min-width: 1024px) {
+  header .nav-toggle {
+    display: none;
+  }
+}
+
+/* ============================================================
+   6. MOBILE DRAWER  (slide down from header, <1024px)
+   ============================================================ */
+header .nav-mobile {
+  /* sits directly below the fixed bar */
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-nav) - 1);
+
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border-default);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.10);
+
+  /* slide-down animation */
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.35s;
+}
+
+header .nav-mobile.open {
+  max-height: 100dvh;      /* expand to full screen height if needed */
+  visibility: visible;
+  overflow-y: auto;
+}
+
+/* Hide drawer on desktop */
+@media (min-width: 1024px) {
+  header .nav-mobile {
+    display: none !important;
+  }
+}
+
+/* ── Drawer inner padding ── */
+header .nav-mobile-list {
+  list-style: none;
+  padding: var(--space-4) var(--container-pad) var(--space-2);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Each nav link row ── */
+header .nav-mobile-list li {
+  border-bottom: 1px solid var(--color-neutral-100);
+  margin: 0;
+}
+
+header .nav-mobile-list li:last-child {
+  border-bottom: none;
+}
+
+header .nav-mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-2);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-800);
+  text-decoration: none;
+  min-height: 3rem;        /* comfortable tap target */
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+header .nav-mobile-link::after {
+  content: '›';
+  font-size: 1.2rem;
+  color: var(--color-neutral-400);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  line-height: 1;
+}
+
+header .nav-mobile-link:hover,
+header .nav-mobile-link.active,
+header .nav-mobile-link[aria-current='page'] {
+  color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary-xlight);
+  padding-left: var(--space-4);
+}
+
+header .nav-mobile-link:hover::after,
+header .nav-mobile-link.active::after,
+header .nav-mobile-link[aria-current='page']::after {
+  transform: translateX(3px);
+  color: var(--color-brand-primary);
+}
+
+/* ── Mobile CTA button ── */
+header .nav-mobile-cta {
+  display: block;
+  margin: var(--space-4) var(--container-pad) var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-brand-primary);
+  color: var(--color-white) !important;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-2xl);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  box-shadow: var(--shadow-brand);
+  -webkit-tap-highlight-color: transparent;
+}
+
+header .nav-mobile-cta:hover {
+  background-color: var(--color-brand-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   7. DARK OVERLAY  (behind drawer, above page content)
+   ============================================================ */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-nav) - 2);
+  background-color: rgb(0 0 0 / 0);
+  transition: background-color 0.35s ease;
+}
+
+.nav-overlay.visible {
+  display: block;
+  background-color: rgb(0 0 0 / 0.40);
+}
+
+@media (min-width: 1024px) {
+  .nav-overlay { display: none !important; }
+}
+
+/* ============================================================
+   8. MOBILE / TABLET SIZE TWEAKS
+   ============================================================ */
+
+/* XS < 480px */
+@media (max-width: 479px) {
+  :root { --nav-height: 3.25rem; }
+
+  header .header-wrapper {
+    height: var(--nav-height);
+    padding-inline: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  header .header-brand .brand-name { font-size: var(--font-size-lg); }
+  header .header-brand .brand-icon { width: 1.6rem; height: 1.6rem; }
+
+  header .nav-mobile { top: var(--nav-height); }
+  header .nav-mobile-list { padding-inline: var(--space-4); }
+  header .nav-mobile-cta  { margin-inline: var(--space-4); }
+  header .nav-mobile-link { font-size: var(--font-size-sm); }
+}
+
+/* SM 480–767px */
+@media (min-width: 480px) and (max-width: 767px) {
+  :root { --nav-height: 3.5rem; }
+  header .header-wrapper { height: var(--nav-height); }
+  header .nav-mobile { top: var(--nav-height); }
+}
+
+/* MD 768–1023px  (tablet) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root { --nav-height: 4rem; }
+  header .header-wrapper { padding-inline: var(--space-8); }
+  header .nav-mobile { top: var(--nav-height); }
+  header .nav-mobile-list { padding-inline: var(--space-8); }
+  header .nav-mobile-cta  { margin-inline: var(--space-8); font-size: var(--font-size-lg); }
+  header .nav-mobile-link { font-size: var(--font-size-lg); padding: var(--space-5) var(--space-2); }
+}
+
+/* Touch device — bigger tap targets */
+@media (hover: none) and (pointer: coarse) {
+  header .nav-toggle { width: 2.75rem; height: 2.75rem; }
+  header .nav-mobile-link { min-height: 3.25rem; }
+}
+/* ============================================================
+   SEARCH
 ============================================================ */
 
 header .nav-search-btn {
@@ -8,8 +372,8 @@ header .nav-search-btn {
   align-items: center;
   justify-content: center;
 
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
 
   border: none;
 
@@ -27,35 +391,35 @@ header .nav-search-btn {
 }
 
 header .nav-search-btn:hover {
-  background: var(--color-neutral-100);
+  background-color: var(--color-neutral-100);
 
   color: var(--color-brand-primary);
 }
 
-/* ============================================================
-   SEARCH BOX
-============================================================ */
+/* Search Box */
 
 header .header-search {
-  position: absolute;
+  position: fixed;
 
-  top: 76px;
+  top: 80px;
 
   right: 120px;
 
   width: 0;
 
-  opacity: 0;
-
   overflow: hidden;
+
+  opacity: 0;
 
   transition:
     width 0.3s ease,
     opacity 0.3s ease;
+
+  z-index: 999;
 }
 
 header .header-search.active {
-  width: 320px;
+  width: 280px;
 
   opacity: 1;
 }
@@ -69,19 +433,17 @@ header .header-search input {
 
   border-radius: 14px;
 
+  background: #fff;
+
   font-size: 15px;
 
   outline: none;
 
-  background: #fff;
-
   box-shadow:
-    0 10px 30px rgb(0 0 0 / 8%);
+    0 10px 30px rgb(0 0 0 / 10%);
 }
 
-/* ============================================================
-   MOBILE
-============================================================ */
+/* Hide on mobile */
 
 @media (max-width: 1023px) {
 
