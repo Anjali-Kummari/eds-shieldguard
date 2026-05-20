@@ -260,6 +260,18 @@ wrapper.append(searchBox);
 const searchInput =
   searchBox.querySelector('#site-search');
 
+/* Search Count */
+
+const resultCount =
+  document.createElement('div');
+
+resultCount.className =
+  'search-count';
+
+searchBox.append(resultCount);
+
+/* Toggle Search */
+
 searchBtn.addEventListener('click', () => {
 
   searchBox.classList.toggle('active');
@@ -268,36 +280,67 @@ searchBtn.addEventListener('click', () => {
 
 });
 
+/* Search Logic */
+
 searchInput.addEventListener('input', (e) => {
 
   const value =
-    e.target.value.toLowerCase();
+    e.target.value
+      .trim()
+      .toLowerCase();
 
   const searchable =
-    document.querySelectorAll(
-      'h1, h2, h3, p'
-    );
+    [
+      ...document.querySelectorAll(
+        'h1, h2, h3, p'
+      ),
+    ];
+
+  let matches = [];
 
   searchable.forEach((item) => {
 
     const text =
       item.textContent.toLowerCase();
 
+    /* Reset */
+
+    item.style.background = '';
+
+    item.style.transition =
+      'background 0.2s ease';
+
     if (
       value &&
       text.includes(value)
     ) {
 
+      matches.push(item);
+
       item.style.background =
         '#dff7ea';
-
-    } else {
-
-      item.style.background = '';
 
     }
 
   });
+
+  /* Result Count */
+
+  resultCount.textContent =
+    matches.length
+      ? `${matches.length} result${matches.length > 1 ? 's' : ''}`
+      : '';
+
+  /* Scroll To First Match */
+
+  if (matches.length) {
+
+    matches[0].scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+
+  }
 
 });
 }
