@@ -200,13 +200,15 @@
 
   border-radius: 32px;
 
-  box-shadow: 0 20px 50px rgb(0 0 0 / 10%);
+ 
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  
+  gap: 5px;
+  margin-top: 70px;
 }
 
 .stat-card {
