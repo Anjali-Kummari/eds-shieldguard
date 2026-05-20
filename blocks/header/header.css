@@ -452,3 +452,30 @@ header .header-search input {
     display: none;
   }
 }
+/* ============================================================
+   SEARCH COUNT
+============================================================ */
+
+header .search-count {
+  position: absolute;
+
+  top: 50%;
+
+  right: 14px;
+
+  transform: translateY(-50%);
+
+  background: #00a86b;
+
+  color: #fff;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  pointer-events: none;
+}
