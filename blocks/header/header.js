@@ -131,12 +131,41 @@ desktopCta.href = '/#quote';
 desktopCta.className = 'nav-cta';
 
 desktopCta.textContent = 'Get a Quote';
+  
+/* Login Dropdown */
+
+const loginWrapper = document.createElement('div');
+loginWrapper.className = 'login-dropdown';
+
+const loginBtn = document.createElement('button');
+loginBtn.className = 'login-btn';
+loginBtn.innerHTML = `
+  Login
+  <span class="login-arrow">▼</span>
+`;
+
+const loginMenu = document.createElement('div');
+loginMenu.className = 'login-menu';
+
+loginMenu.innerHTML = `
+  <a href="https://YOUR_AGENT_PORTAL_URL" target="_blank">
+    Agent Portal
+  </a>
+
+  <a href="https://YOUR_CUSTOMER_PORTAL_URL" target="_blank">
+    Customer Portal
+  </a>
+`;
+
+loginWrapper.append(loginBtn, loginMenu);
 
 /* Append */
 
 desktopNav.append(searchBtn);
 
 desktopNav.append(desktopCta);
+
+desktopNav.append(loginWrapper);
 
 wrapper.append(searchBox);
 
@@ -183,6 +212,27 @@ wrapper.append(searchBox);
   drawerCta.href = '/#quote';
   drawerCta.className = 'nav-mobile-cta';
   drawerCta.textContent = 'Get a Quote';
+  const agentPortal = document.createElement('a');
+agentPortal.href = 'https://YOUR_AGENT_PORTAL_URL';
+agentPortal.className = 'nav-mobile-link';
+agentPortal.textContent = 'Agent Portal';
+
+const customerPortal = document.createElement('a');
+customerPortal.href = 'https://YOUR_CUSTOMER_PORTAL_URL';
+customerPortal.className = 'nav-mobile-link';
+customerPortal.textContent = 'Customer Portal';
+
+drawerList.append(
+  Object.assign(document.createElement('li'), {
+    innerHTML: agentPortal.outerHTML
+  })
+);
+
+drawerList.append(
+  Object.assign(document.createElement('li'), {
+    innerHTML: customerPortal.outerHTML
+  })
+);
 
   drawer.append(drawerList, drawerCta);
 
