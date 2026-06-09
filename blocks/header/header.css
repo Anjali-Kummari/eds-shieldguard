@@ -479,3 +479,103 @@ header .search-count {
 
   pointer-events: none;
 }
+/* ============================================================
+   LOGIN DROPDOWN
+============================================================ */
+
+header .login-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+header .login-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  padding: var(--space-2) var(--space-3);
+
+  color: var(--color-neutral-700);
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+
+  transition: color 0.2s ease;
+}
+
+header .login-btn:hover {
+  color: var(--color-brand-primary);
+}
+
+header .login-arrow {
+  font-size: 10px;
+  transition: transform 0.2s ease;
+}
+
+header .login-dropdown:hover .login-arrow {
+  transform: rotate(180deg);
+}
+
+header .login-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  min-width: 220px;
+
+  background: #fff;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  display: none;
+
+  box-shadow:
+    0 10px 30px rgb(0 0 0 / 12%);
+
+  z-index: 9999;
+}
+
+header .login-dropdown:hover .login-menu {
+  display: block;
+}
+
+header .login-menu a {
+  display: block;
+
+  padding: 14px 18px;
+
+  color: var(--color-neutral-700);
+
+  text-decoration: none;
+
+  font-size: var(--font-size-sm);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+header .login-menu a:hover {
+  background: var(--color-neutral-100);
+
+  color: var(--color-brand-primary);
+}
+
+header .login-menu a:not(:last-child) {
+  border-bottom: 1px solid #ececec;
+}
+
+/* Hide login dropdown on mobile */
+
+@media (max-width: 1023px) {
+  header .login-dropdown {
+    display: none;
+  }
+}
