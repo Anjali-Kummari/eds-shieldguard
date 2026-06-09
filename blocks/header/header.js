@@ -148,7 +148,7 @@ const loginMenu = document.createElement('div');
 loginMenu.className = 'login-menu';
 
 loginMenu.innerHTML = `
-  <a href="https://YOUR_AGENT_PORTAL_URL" target="_blank">
+  <a href="http://dxpvm.eastus.cloudapp.azure.com/portals/agent-portal/" target="_blank">
     Agent Portal
   </a>
 
@@ -213,7 +213,7 @@ wrapper.append(searchBox);
   drawerCta.className = 'nav-mobile-cta';
   drawerCta.textContent = 'Get a Quote';
   const agentPortal = document.createElement('a');
-agentPortal.href = 'https://YOUR_AGENT_PORTAL_URL';
+agentPortal.href = 'http://dxpvm.eastus.cloudapp.azure.com/portals/agent-portal/';
 agentPortal.className = 'nav-mobile-link';
 agentPortal.textContent = 'Agent Portal';
 
