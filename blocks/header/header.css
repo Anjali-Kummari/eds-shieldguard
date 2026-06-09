@@ -479,6 +479,7 @@ header .search-count {
 
   pointer-events: none;
 }
+
 /* ============================================================
    LOGIN DROPDOWN
 ============================================================ */
@@ -487,92 +488,121 @@ header .login-dropdown {
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: var(--space-2);
 }
 
+/* Login button - same style as Get a Quote */
+
 header .login-btn {
+  background-color: var(--color-neutral-900);
+
+  color: var(--color-white);
+
+  padding: var(--space-2) var(--space-5);
+
+  border-radius: var(--radius-full);
+
+  font-weight: var(--font-weight-semibold);
+
+  font-size: var(--font-size-sm);
+
+  border: none;
+
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   gap: 6px;
 
-  background: transparent;
-  border: none;
-  cursor: pointer;
+  white-space: nowrap;
 
-  padding: var(--space-2) var(--space-3);
-
-  color: var(--color-neutral-700);
-
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-
-  transition: color 0.2s ease;
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 header .login-btn:hover {
-  color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary);
+
+  color: var(--color-white);
+
+  transform: translateY(-1px);
 }
+
+/* Dropdown arrow */
 
 header .login-arrow {
   font-size: 10px;
-  transition: transform 0.2s ease;
+  color: inherit;
+  transition: transform 0.25s ease;
 }
 
 header .login-dropdown:hover .login-arrow {
   transform: rotate(180deg);
 }
 
+/* Dropdown menu */
+
 header .login-menu {
   position: absolute;
-  top: calc(100% + 8px);
+
+  top: calc(100% + 10px);
+
   right: 0;
 
   min-width: 220px;
 
-  background: #fff;
+  background: var(--color-white);
 
-  border-radius: 12px;
+  border-radius: 16px;
 
   overflow: hidden;
 
   display: none;
 
   box-shadow:
-    0 10px 30px rgb(0 0 0 / 12%);
+    0 12px 40px rgb(0 0 0 / 15%);
 
   z-index: 9999;
 }
 
+/* Show dropdown on hover */
+
 header .login-dropdown:hover .login-menu {
   display: block;
 }
+
+/* Dropdown links */
 
 header .login-menu a {
   display: block;
 
   padding: 14px 18px;
 
-  color: var(--color-neutral-700);
-
   text-decoration: none;
 
+  color: var(--color-neutral-700);
+
   font-size: var(--font-size-sm);
+
+  font-weight: var(--font-weight-medium);
 
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
+header .login-menu a:not(:last-child) {
+  border-bottom: 1px solid rgb(0 0 0 / 0.06);
+}
+
 header .login-menu a:hover {
-  background: var(--color-neutral-100);
+  background-color: var(--color-neutral-100);
 
   color: var(--color-brand-primary);
 }
 
-header .login-menu a:not(:last-child) {
-  border-bottom: 1px solid #ececec;
-}
-
-/* Hide login dropdown on mobile */
+/* Hide on mobile */
 
 @media (max-width: 1023px) {
   header .login-dropdown {
