@@ -152,7 +152,7 @@ loginMenu.innerHTML = `
     Agent Portal
   </a>
 
-  <a href="https://YOUR_CUSTOMER_PORTAL_URL" target="_blank">
+  <a href="http://dxpvm.eastus.cloudapp.azure.com/portals/customer-portal/" target="_blank">
     Customer Portal
   </a>
 `;
@@ -218,7 +218,7 @@ agentPortal.className = 'nav-mobile-link';
 agentPortal.textContent = 'Agent Portal';
 
 const customerPortal = document.createElement('a');
-customerPortal.href = 'https://YOUR_CUSTOMER_PORTAL_URL';
+customerPortal.href = 'http://dxpvm.eastus.cloudapp.azure.com/portals/customer-portal/';
 customerPortal.className = 'nav-mobile-link';
 customerPortal.textContent = 'Customer Portal';
 
