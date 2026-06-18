@@ -69,13 +69,24 @@ export default async function decorate(block) {
   desktopNav.className = 'nav-desktop';
   desktopNav.setAttribute('aria-label', 'Main navigation');
 
+  const navCenter = document.createElement('div');
+  navCenter.className = 'nav-center';
+
+  const navActions = document.createElement('div');
+  navActions.className = 'nav-actions';
+
   links.forEach(({ href, label }) => {
-    const a = document.createElement('a');
-    a.href = href;
-    a.textContent = label;
-    if (isCurrentPage(href)) a.setAttribute('aria-current', 'page');
-    desktopNav.append(a);
-  });
+  const a = document.createElement('a');
+
+  a.href = href;
+  a.textContent = label;
+
+  if (isCurrentPage(href)) {
+    a.setAttribute('aria-current', 'page');
+  }
+
+  navCenter.append(a);
+});
 
   /* =========================================================
    SEARCH BUTTON
@@ -158,14 +169,30 @@ loginMenu.innerHTML = `
 `;
 
 loginWrapper.append(loginBtn, loginMenu);
+loginBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+
+  loginMenu.classList.toggle('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (!loginWrapper.contains(e.target)) {
+    loginMenu.classList.remove('open');
+  }
+});
 
 /* Append */
 
-desktopNav.append(searchBtn);
+navActions.append(
+  searchBtn,
+  desktopCta,
+  loginWrapper
+);
 
-desktopNav.append(desktopCta);
-
-desktopNav.append(loginWrapper);
+desktopNav.append(
+  navCenter,
+  navActions
+);
 
 wrapper.append(searchBox);
 
