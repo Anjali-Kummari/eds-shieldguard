@@ -70,11 +70,10 @@ header .header-brand .brand-name {
    4. DESKTOP NAV  (hidden below 1024px)
    ============================================================ */
 header .nav-desktop {
-  display: none;            /* hidden on mobile/tablet */
-  align-items: center;
-  gap: var(--space-6);
+  display: none;
   flex: 1;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @media (min-width: 1024px) {
@@ -97,6 +96,44 @@ header .nav-desktop a {
 header .nav-desktop a:hover,
 header .nav-desktop a[aria-current='page'] {
   color: var(--color-brand-primary);
+}
+
+/* ==========================================
+   CENTER NAVIGATION
+========================================== */
+
+header .nav-center {
+  flex: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 48px;
+}
+
+/* ==========================================
+   RIGHT ACTIONS
+========================================== */
+
+header .nav-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 16px;
+}
+
+header .header-brand {
+  flex: 1;
+}
+
+header .nav-desktop {
+  flex: 2;
 }
 
 /* "Get a Quote" pill CTA — desktop */
@@ -568,8 +605,21 @@ header .login-menu {
 
 /* Show dropdown on hover */
 
-header .login-dropdown:hover .login-menu {
+header .login-menu {
+  display: none;
+}
+
+header .login-menu.open {
   display: block;
+}
+
+
+header .login-arrow {
+  transition: transform 0.3s ease;
+}
+
+header .login-menu.open + .login-arrow {
+  transform: rotate(180deg);
 }
 
 /* Dropdown links */
