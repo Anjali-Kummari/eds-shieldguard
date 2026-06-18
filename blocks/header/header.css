@@ -109,9 +109,9 @@ header .nav-center {
 
   align-items: center;
 
-  justify-content: center;
+ /* justify-content: center; */
 
-  gap: 48px;
+  gap: 32px;
 }
 
 /* ==========================================
