@@ -7,6 +7,10 @@
  * Load a CSS file.
  * @param {string} href
  */
+
+// Initialize Adobe Data Layer
+window.adobeDataLayer = window.adobeDataLayer || [];
+
 export function loadCSS(href) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`head > link[href="${href}"]`)) {
@@ -221,11 +225,17 @@ function loadLazyStyles() {
  * Main page lifecycle.
  */
 async function loadPage() {
-  const main = document.querySelector('main');
+ const main = document.querySelector('main');
 
-  if (!main) {
-    return;
-  }
+if (!main) {
+  return;
+}
+
+// Load Adobe Tags (Launch)
+const launchScript = document.createElement('script');
+launchScript.src = '<script src="https://assets.adobedtm.com/eefeab07e775/c3ec482988b5/launch-0519aa5f6f8a-development.min.js" async></script>';
+launchScript.async = true;
+document.head.appendChild(launchScript);
 
   // Decorate page
   decorateMain(main);
