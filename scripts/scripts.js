@@ -7,6 +7,14 @@
  * Load a CSS file.
  * @param {string} href
  */
+const launch = document.createElement('script');
+
+launch.src = 'https://assets.adobedtm.com/eefeab07e775/c3ec482988b5/launch-839352677a54.min.js';
+
+launch.async = true;
+
+document.head.appendChild(launch);
+
 
 export function loadCSS(href) {
   return new Promise((resolve, reject) => {
