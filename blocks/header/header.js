@@ -159,13 +159,11 @@ desktopCta.addEventListener('click', () => {
 
   window.adobeDataLayer = window.adobeDataLayer || [];
 
-  window.adobeDataLayer.push({
-
+ window.adobeDataLayer.push({
     event: "quoteClick",
-
-    quoteLocation: "Header"
-
-  });
+    buttonName: "Get Quote",
+    buttonLocation: "Header"
+});
 
 });
   
