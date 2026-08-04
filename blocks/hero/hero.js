@@ -118,27 +118,6 @@ export default function decorate(block) {
         </div>
       </div>
 
-const heroButton = block.querySelector('#hero-quote');
-
-if (heroButton) {
-
-  heroButton.addEventListener('click', () => {
-
-    window.adobeDataLayer = window.adobeDataLayer || [];
-
-    window.adobeDataLayer.push({
-      event: 'quoteClick',
-      quoteLocation: 'Hero'
-    });
-
-    console.log('Hero Quote Clicked');
-
-  });
-
-}
-
-
-
       <div class="hero-visual">
         <div class="hero-image-wrap">
           ${imgMarkup}
@@ -160,4 +139,20 @@ if (heroButton) {
       </div>
 
     </div>`;
+  // Adobe Data Layer tracking
+const heroButton = block.querySelector('#hero-quote');
+
+if (heroButton) {
+  heroButton.addEventListener('click', () => {
+
+    window.adobeDataLayer = window.adobeDataLayer || [];
+
+    window.adobeDataLayer.push({
+      event: 'quoteClick',
+      quoteLocation: 'Hero'
+    });
+
+    console.log('Hero Quote Clicked');
+  });
+}
 }
