@@ -100,7 +100,12 @@ export default function decorate(block) {
         <p>${bodyText}</p>
 
         <div class="hero-ctas">
-          <a href="${primaryHref}" class="btn btn-primary btn-lg">
+         /*<a href="${primaryHref}" class="btn btn-primary btn-lg">*/
+         <a
+           href="${primaryHref}"
+           id="hero-quote"
+           class="btn btn-primary btn-lg"
+           data-analytics-location="Hero">
             ${primaryCTA}
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2"
