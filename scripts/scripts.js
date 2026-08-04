@@ -8,9 +8,6 @@
  * @param {string} href
  */
 
-// Initialize Adobe Data Layer
-window.adobeDataLayer = window.adobeDataLayer || [];
-
 export function loadCSS(href) {
   return new Promise((resolve, reject) => {
     if (document.querySelector(`head > link[href="${href}"]`)) {
