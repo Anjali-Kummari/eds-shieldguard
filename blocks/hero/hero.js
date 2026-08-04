@@ -147,10 +147,11 @@ if (heroButton) {
 
     window.adobeDataLayer = window.adobeDataLayer || [];
 
-    window.adobeDataLayer.push({
-      event: 'quoteClick',
-      quoteLocation: 'Hero'
-    });
+   window.adobeDataLayer.push({
+    event: "quoteClick",
+    buttonName: "Get Quote",
+    buttonLocation: "Hero"
+});
 
     console.log('Hero Quote Clicked');
   });
