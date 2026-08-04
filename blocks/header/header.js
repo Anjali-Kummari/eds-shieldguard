@@ -154,6 +154,20 @@ desktopCta.id = 'header-quote';
 desktopCta.dataset.analyticsLocation = 'Header';
 
 desktopCta.textContent = 'Get a Quote';
+
+desktopCta.addEventListener('click', () => {
+
+  window.adobeDataLayer = window.adobeDataLayer || [];
+
+  window.adobeDataLayer.push({
+
+    event: "quoteClick",
+
+    quoteLocation: "Header"
+
+  });
+
+});
   
 /* Login Dropdown */
 
