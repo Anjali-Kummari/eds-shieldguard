@@ -100,7 +100,7 @@ export default function decorate(block) {
         <p>${bodyText}</p>
 
         <div class="hero-ctas">
-         /*<a href="${primaryHref}" class="btn btn-primary btn-lg">*/
+        
          <a
            href="${primaryHref}"
            id="hero-quote"
