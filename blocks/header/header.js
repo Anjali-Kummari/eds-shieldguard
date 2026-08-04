@@ -135,11 +135,23 @@ searchBox.innerHTML = `
 
 /* Get Quote CTA */
 
+/*const desktopCta = document.createElement('a');
+
+desktopCta.href = '/#quote';
+
+desktopCta.className = 'nav-cta';
+
+desktopCta.textContent = 'Get a Quote';*/
+  
 const desktopCta = document.createElement('a');
 
 desktopCta.href = '/#quote';
 
 desktopCta.className = 'nav-cta';
+
+desktopCta.id = 'header-quote';
+
+desktopCta.dataset.analyticsLocation = 'Header';
 
 desktopCta.textContent = 'Get a Quote';
   
