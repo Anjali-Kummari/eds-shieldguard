@@ -231,11 +231,6 @@ if (!main) {
   return;
 }
 
-// Load Adobe Tags (Launch)
-const launchScript = document.createElement('script');
-launchScript.src = '<script src="https://assets.adobedtm.com/eefeab07e775/c3ec482988b5/launch-0519aa5f6f8a-development.min.js" async></script>';
-launchScript.async = true;
-document.head.appendChild(launchScript);
 
   // Decorate page
   decorateMain(main);
