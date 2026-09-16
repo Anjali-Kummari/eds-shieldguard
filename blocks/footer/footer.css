@@ -57,7 +57,7 @@ footer {
 .footer-brand-logo svg {
   width: 2rem;
   height: 2rem;
-  color: var(--color-brand-accent);
+  color: var(--color-brand-primary);
   flex-shrink: 0;
 }
 
