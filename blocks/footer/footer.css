@@ -128,7 +128,7 @@ footer {
 }
 
 .footer-col ul li a:hover {
-  color: var(--color-brand-accent);
+  color: var(--color-brand-primary);
 }
 
 /* ── Contact items ───────────────────────────────────── */
