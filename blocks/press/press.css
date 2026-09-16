@@ -158,7 +158,7 @@
 ========================================================= */
 
 .press-hero {
-  background: #eef8f4;
+  background: #dde7f4;
 
   border-radius: 40px;
 
@@ -180,7 +180,7 @@
 
   background: #dff7ea;
 
-  color: #00a86b;
+  color: #0255cc;
 
   font-size: 12px;
   font-weight: 700;
@@ -203,7 +203,7 @@
 }
 
 .press-hero h1 span {
-  color: #00a86b;
+  color: #0255cc;
 }
 
 .press-hero p {
