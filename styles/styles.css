@@ -48,10 +48,10 @@
 :root {
   /* Brand Colors */
   --color-brand-primary: #0255cc;       /* emerald-600 */
-  --color-brand-primary-hover: #047857; /* emerald-700 */
-  --color-brand-primary-light: #d1fae5; /* emerald-100 */
+  --color-brand-primary-hover: #0255cc; /* emerald-700 */
+  --color-brand-primary-light: #cfe2fe; /* emerald-100 */
   --color-brand-primary-xlight: #ecfdf5;/* emerald-50 */
-  --color-brand-primary-border: #a7f3d0;/* emerald-200 */
+  --color-brand-primary-border: #ecfdf5;/* emerald-200 */
   --color-brand-primary-text: #065f46;  /* emerald-800 */
   --color-brand-accent: #34d399;        /* emerald-400 — dark bg accents */
 
