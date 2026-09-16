@@ -104,7 +104,7 @@
   gap: 0.375rem;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  background-color: var(--color-brand-primary-xlight, #cfe2fe);
+  background-color: #cfe2fe;
   border: 1px solid var(--color-brand-primary-border, #9cc5fe);
   color: #0255cc;
   font-size: 0.6875rem;           /* 11px — fixed, never scaled by global h1 rules */
