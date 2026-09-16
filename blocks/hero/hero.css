@@ -106,7 +106,7 @@
   border-radius: 9999px;
   background-color: var(--color-brand-primary-xlight, #ecfdf5);
   border: 1px solid var(--color-brand-primary-border, #a7f3d0);
-  color: var(--color-brand-primary, #059669);
+  color: #0255cc;
   font-size: 0.6875rem;           /* 11px — fixed, never scaled by global h1 rules */
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -120,7 +120,7 @@
 .hero .hero-badge .badge-star {
   width: 0.75rem;
   height: 0.75rem;
-  fill: var(--color-brand-primary, #059669);
+  fill: #0255cc;
   stroke: none;
   flex-shrink: 0;
 }
@@ -153,7 +153,7 @@
 /* em = brand colour line — block on mobile so it wraps in column */
 .hero .hero-content h1 em {
   font-style: normal;
-  color: var(--color-brand-primary, #059669);
+  color: #0255cc;
   display: block;                 /* forces line break; respects column width */
   word-break: break-word;
   overflow-wrap: break-word;
@@ -382,7 +382,7 @@
 .hero .hero-float-card .card-icon-wrap svg {
   width: 1.25rem;
   height: 1.25rem;
-  color: #059669;
+  color: #0255cc;
 }
 
 .hero .hero-float-card .card-title {
