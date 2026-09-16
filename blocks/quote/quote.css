@@ -115,7 +115,7 @@
 
 .quote-type-btn.selected {
   border-color: #9cc5fe;
-  background-color: var(--color-brand-primary-xlight, #cfe2fe);
+  background-color: #cfe2fe;
   color: #0255cc;
 }
 
