@@ -9,7 +9,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 32px;
-  color: #00a86b;
+  color: #64748b;
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
@@ -24,8 +24,8 @@
 }
 
 .press-badge {
-  background: #dff7ea;
-  color: #00a86b;
+  background-color: #cfe2fe;
+  border: 1px solid var(--color-brand-primary-border, #9cc5fe);
   padding: 7px 14px;
   border-radius: 999px;
   font-size: 11px;
@@ -71,7 +71,7 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #00a86b;
+  background: #0255cc;
   color: #fff;
   display: flex;
   align-items: center;
@@ -213,7 +213,7 @@
 .media-grid a {
   display: inline-block;
   margin-top: 6px;
-  color: #00d084;
+  color: #0255cc;
   font-weight: 600;
   text-decoration: none;
 }
@@ -232,7 +232,7 @@
 }
 
 .recent-header a {
-  color: #00a86b;
+  color: #0255cc;
   font-weight: 700;
   text-decoration: none;
 }
@@ -259,7 +259,7 @@
 }
 
 .announcement-top span {
-  color: #00a86b;
+  color: #0255cc;
   font-size: 11px;
   font-weight: 700;
 }
